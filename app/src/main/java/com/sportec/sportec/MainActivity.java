@@ -13,21 +13,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.sportec.sportec.fragments.NoticiaFragment;
+import com.sportec.sportec.fragments.SessionFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        NoticiaFragment.OnFragmentInteractionListener{
+        NoticiaFragment.OnFragmentInteractionListener,
+        SessionFragment.OnFragmentInteractionListener{
 
     private Intent mScreen;
+    private Toolbar mToolbar;
+    private ImageView mLogoNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        this.mLogoNav= (ImageView) findViewById(R.id.nav_logo);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -87,17 +93,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            this.mLogoNav.setVisibility(View.VISIBLE);
         } else if (id == R.id.nav_gallery) {
+            this.mLogoNav.setVisibility(View.VISIBLE);
             this.showPrincipalFragment();
 
         } else if (id == R.id.nav_slideshow) {
+            this.mLogoNav.setVisibility(View.INVISIBLE);
+            this.showSessionFragment();
 
         } else if (id == R.id.nav_manage) {
+            this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_share) {
+            this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_send) {
+            this.mLogoNav.setVisibility(View.VISIBLE);
 
         }
 
@@ -111,6 +123,14 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
                         NoticiaFragment.newInstance(""))
+                .commit();
+    }
+    private void showSessionFragment() {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_activity_fragment,
+                        SessionFragment.newInstance(""))
                 .commit();
     }
 }
