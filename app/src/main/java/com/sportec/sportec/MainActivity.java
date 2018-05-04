@@ -15,13 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         NoticiaFragment.OnFragmentInteractionListener,
-        SessionFragment.OnFragmentInteractionListener{
+        SessionFragment.OnFragmentInteractionListener,
+        FormularioResgistroFragment.OnFragmentInteractionListener{
 
     private Intent mScreen;
     private Toolbar mToolbar;
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity
             this.showSessionFragment();
 
         } else if (id == R.id.nav_manage) {
+            this.showRegistroFragment();
             this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_share) {
@@ -131,6 +134,14 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
                         SessionFragment.newInstance(""))
+                .commit();
+    }
+    private void showRegistroFragment() {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_activity_fragment,
+                        FormularioResgistroFragment.newInstance(""))
                 .commit();
     }
 }

@@ -77,6 +77,10 @@
                         android:text="INICIAR SESIÓN"
                         android:textColor="#FFF" />
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="13dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,7 +127,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="O iniciar sesión con:"
+                    android:text="Iniciar sesión con:"
                     android:textAlignment="center" />
 
                 <Space
