@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#fff"
         android:orientation="vertical">
 
         <ScrollView
@@ -16,7 +17,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -29,6 +30,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:background="@color/colorAccent"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/key1" />
                 </RelativeLayout>
 
@@ -37,8 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#880000"
-                    android:text="SporTEC"
                     android:paddingLeft="25dp"
+                    android:text="SporTEC"
                     android:textColor="#ffffff" />
 
                 <TextView
