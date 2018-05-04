@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
+import com.sportec.sportec.fragments.DeporteFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity
         NoticiaFragment.OnFragmentInteractionListener,
         SessionFragment.OnFragmentInteractionListener,
         FormularioResgistroFragment.OnFragmentInteractionListener,
-        DeporteFavoritoFragment.OnFragmentInteractionListener{
+        DeporteFavoritoFragment.OnFragmentInteractionListener,
+        DeporteFragment.OnFragmentInteractionListener{
 
     private Intent mScreen;
     private Toolbar mToolbar;
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity
             this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_send) {
+            this.showDeporteFragment();
             this.mLogoNav.setVisibility(View.VISIBLE);
 
         }
@@ -153,6 +156,14 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
                         DeporteFavoritoFragment.newInstance(""))
+                .commit();
+    }
+    private void showDeporteFragment() {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_activity_fragment,
+                        DeporteFragment.newInstance(""))
                 .commit();
     }
 }
