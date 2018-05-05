@@ -25,6 +25,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity android:name=".layouts.DeporteLayout" />
+        <activity android:name=".layouts.OpcionLayout" />
+        <activity android:name=".layouts.ResultadoLayout" />
     </application>
 
 </manifest>

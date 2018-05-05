@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sportec.sportec.Informacion.Adapter.DeporteAdapter;
+import com.sportec.sportec.Informacion.Adapter.OpcionAdapter;
 import com.sportec.sportec.Informacion.Noticia;
 import com.sportec.sportec.R;
 
@@ -19,7 +20,7 @@ import com.sportec.sportec.R;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class DeporteLayout extends AppCompatActivity{
+public class OpcionLayout extends AppCompatActivity {
     private GridView mGridView;
 
     private Intent mScreen;
@@ -31,32 +32,18 @@ public class DeporteLayout extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_deporte);
+        setContentView(R.layout.layout_opcion);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview_layout_deporte);
-        gridview.setAdapter(new DeporteAdapter(this));
+        GridView gridview = (GridView) findViewById(R.id.gridview_layout_opcion);
+        gridview.setAdapter(new OpcionAdapter(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(DeporteLayout.this, "" + position,
+                Toast.makeText(OpcionLayout.this, "" + position,
                         Toast.LENGTH_SHORT).show();
             }
         });
 
-    }
-    public static Noticia[] ITEMS = {
-            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
-            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
-            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
-            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
-    };
-    public static Noticia getItem(int id) {
-        for (Noticia item : ITEMS) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
     }
 }

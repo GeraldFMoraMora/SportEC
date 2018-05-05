@@ -1,4 +1,4 @@
-package com.sportec.sportec.Informacion;
+package com.sportec.sportec.Informacion.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import com.sportec.sportec.R;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class DeporteAdapter extends BaseAdapter {
     private Context mContext;
-    public ImageAdapter(Context context){
+    public DeporteAdapter(Context context){
         this.mContext=context;
     }
     @Override

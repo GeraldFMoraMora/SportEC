@@ -13,36 +13,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sportec.sportec.Informacion.Noticia;
-import com.sportec.sportec.Informacion.NoticiaAdapter;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
-import com.sportec.sportec.fragments.DeporteFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
 import com.sportec.sportec.layouts.DeporteLayout;
-
-import java.util.Date;
+import com.sportec.sportec.layouts.OpcionLayout;
+import com.sportec.sportec.layouts.ResultadoLayout;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         NoticiaFragment.OnFragmentInteractionListener,
         SessionFragment.OnFragmentInteractionListener,
         FormularioResgistroFragment.OnFragmentInteractionListener,
-        DeporteFavoritoFragment.OnFragmentInteractionListener,
-        DeporteFragment.OnFragmentInteractionListener{
+        DeporteFavoritoFragment.OnFragmentInteractionListener{
 
     private Intent mScreen;
     private Toolbar mToolbar;
     private ImageView mLogoNav;
 
     private GridView mGridView;
-    private NoticiaAdapter mNoticiaAdapter;
 
     private ImageView mImagenNoticia;
     private TextView MTituloNoticia;
@@ -113,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            this.mScreen=new Intent(this, DeporteLayout.class);
+            this.mScreen=new Intent(this, ResultadoLayout.class);
             startActivity(this.mScreen);
 
 
@@ -133,11 +127,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             showDeporteFavoritoFragment();
             this.mLogoNav.setVisibility(View.VISIBLE);
-
-        } else if (id == R.id.nav_send) {
-            this.showDeporteFragment();
-            this.mLogoNav.setVisibility(View.VISIBLE);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,28 +164,6 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.main_activity_fragment,
                         DeporteFavoritoFragment.newInstance(""))
                 .commit();
-    }
-    private void showDeporteFragment() {
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_activity_fragment,
-                        DeporteFragment.newInstance(""))
-                .commit();
-    }
-    public static Noticia[] ITEMS = {
-            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
-            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
-            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
-            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
-    };
-    public static Noticia getItem(int id) {
-        for (Noticia item : ITEMS) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
     }
 
 }
