@@ -43,35 +43,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                app:srcCompat="@mipmap/key1" />
 
-            <TextView
-                android:id="@+id/textView4"
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#880000"
-                android:paddingLeft="25dp"
-                android:text="SporTEC"
-                android:textColor="#ffffff" />
+                android:layout_height="200dp">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#880000"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:text="Keilor Navas llega a sus 36 años y se siente ya anciano"
-                android:textAllCaps="true"
-                android:textColor="@android:color/background_light"
-                android:textIsSelectable="true"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/imagen_coche"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/key1"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/nombre_coche"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/background_footer"
+                    android:maxLines="1"
+                    android:padding="16dp"
+                    android:text="Keilor Navas llega a sus 36 años y se siente ya anciano"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@android:color/white" />
+
+            </FrameLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
