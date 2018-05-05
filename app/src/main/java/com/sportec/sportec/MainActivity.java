@@ -15,11 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.sportec.sportec.Informacion.Noticia;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.DeporteFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -165,5 +168,25 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.main_activity_fragment,
                         DeporteFragment.newInstance(""))
                 .commit();
+    }
+    public static Noticia[] ITEMS = {
+            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid1),
+            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid2),
+            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid3),
+            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid4)
+    };
+    /**
+     * Obtiene item basado en su identificador
+     *
+     * @param id identificador
+     * @return Coche
+     */
+    public static Noticia getItem(int id) {
+        for (Noticia item : ITEMS) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
     }
 }
