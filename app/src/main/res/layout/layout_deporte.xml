@@ -1,18 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context="com.sportec.sportec.fragments.DeporteFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <GridView
         android:id="@+id/grid_item"
@@ -22,7 +12,9 @@
         android:horizontalSpacing="2dp"
         android:numColumns="auto_fit"
         android:padding="4dp"
-        android:verticalSpacing="2dp" />
+        android:verticalSpacing="2dp" >
+
+    </GridView>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -48,4 +40,4 @@
             android:textColor="@android:color/white" />
 
     </FrameLayout>
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

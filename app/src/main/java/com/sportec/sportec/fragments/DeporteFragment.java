@@ -7,7 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.sportec.sportec.Informacion.Noticia;
+import com.sportec.sportec.Informacion.NoticiaAdapter;
 import com.sportec.sportec.R;
 
 /**
@@ -27,6 +32,12 @@ public class DeporteFragment extends Fragment {
     private String mParam1;
 
     private DeporteFragment.OnFragmentInteractionListener mListener;
+
+    private GridView mGridView;
+    private NoticiaAdapter mNoticiaAdapter;
+
+    private ImageView mImagenNoticia;
+    private TextView MTituloNoticia;
 
     public DeporteFragment() {
         // Required empty public constructor
@@ -97,5 +108,19 @@ public class DeporteFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
+    }
+    public static Noticia[] ITEMS = {
+            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
+            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
+            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
+            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
+    };
+    public static Noticia getItem(int id) {
+        for (Noticia item : ITEMS) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
     }
 }

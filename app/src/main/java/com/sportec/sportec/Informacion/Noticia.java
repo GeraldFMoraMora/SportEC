@@ -1,5 +1,7 @@
 package com.sportec.sportec.Informacion;
 
+import com.sportec.sportec.R;
+
 import java.util.Date;
 
 /**
@@ -24,11 +26,32 @@ public class Noticia {
     public Date getFecha(){return this.mFecha;}
     public int getImagen(){return this.mImagen;}
 
-    public int getId(){return mTitulo.hashCode();}
+    public long getId(){return mTitulo.hashCode();}
 
     public void setTitulo(String titulo){this.mTitulo=titulo;}
     public void setmDescripcion(String descripcion){this.mDescripcion=descripcion;}
     public void setmFecha(Date fecha){this.mFecha=fecha;}
     public void setmImagen(int imagen){this.mImagen=imagen;}
+
+    public static Noticia[] ITEMS = {
+            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
+            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
+            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
+            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
+    };
+    /**
+     * Obtiene item basado en su identificador
+     *
+     * @param id identificador
+     * @return Coche
+     */
+    public static Noticia getItem(int id) {
+        for (Noticia item : ITEMS) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
 
 }

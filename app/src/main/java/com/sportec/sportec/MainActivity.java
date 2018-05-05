@@ -13,14 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sportec.sportec.Informacion.Noticia;
+import com.sportec.sportec.Informacion.NoticiaAdapter;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.DeporteFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
+import com.sportec.sportec.layouts.DeporteLayout;
 
 import java.util.Date;
 
@@ -35,6 +40,12 @@ public class MainActivity extends AppCompatActivity
     private Intent mScreen;
     private Toolbar mToolbar;
     private ImageView mLogoNav;
+
+    private GridView mGridView;
+    private NoticiaAdapter mNoticiaAdapter;
+
+    private ImageView mImagenNoticia;
+    private TextView MTituloNoticia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +113,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            this.mScreen=new Intent(this, DeporteLayout.class);
+            startActivity(this.mScreen);
+
+
             this.mLogoNav.setVisibility(View.VISIBLE);
         } else if (id == R.id.nav_gallery) {
             this.mLogoNav.setVisibility(View.VISIBLE);
@@ -170,17 +185,11 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
     public static Noticia[] ITEMS = {
-            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid1),
-            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid2),
-            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid3),
-            new Noticia("Uno","", new java.util.Date(),R.mipmap.grid4)
+            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
+            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
+            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
+            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
     };
-    /**
-     * Obtiene item basado en su identificador
-     *
-     * @param id identificador
-     * @return Coche
-     */
     public static Noticia getItem(int id) {
         for (Noticia item : ITEMS) {
             if (item.getId() == id) {
@@ -189,4 +198,5 @@ public class MainActivity extends AppCompatActivity
         }
         return null;
     }
+
 }
