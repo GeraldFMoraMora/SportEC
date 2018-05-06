@@ -22,6 +22,7 @@ import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
 import com.sportec.sportec.layouts.DeporteLayout;
+import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
 import com.sportec.sportec.layouts.ResultadoLayout;
 
@@ -109,8 +110,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             this.mScreen=new Intent(this, ResultadoLayout.class);
             startActivity(this.mScreen);
-
-
             this.mLogoNav.setVisibility(View.VISIBLE);
         } else if (id == R.id.nav_gallery) {
             this.mLogoNav.setVisibility(View.VISIBLE);
@@ -125,7 +124,12 @@ public class MainActivity extends AppCompatActivity
             this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_share) {
-            showDeporteFavoritoFragment();
+            this.mScreen=new Intent(this, EquipoLayout.class);
+            startActivity(this.mScreen);
+            this.mLogoNav.setVisibility(View.VISIBLE);
+        }else if (id == R.id.nav_send) {
+            this.mScreen=new Intent(this, OpcionLayout.class);
+            startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }
 
