@@ -1,6 +1,7 @@
 package com.sportec.sportec.Informacion.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,14 +54,15 @@ public class DeporteAdapter extends BaseAdapter {
         }
 
         imageView = (ImageView) convertView.findViewById(R.id.imagen_coche);
+        imageView.setBackgroundColor(Color.WHITE);
         textView = (TextView) convertView.findViewById(R.id.nombre_coche);
         imageView.setImageResource(mThumbIds[position]);
         textView.setText(mThumbNames[position]);
         return convertView;
     }
     private Integer[] mThumbIds = {
-            R.mipmap.grid1, R.mipmap.grid2,
-            R.mipmap.grid3, R.mipmap.grid4
+            R.mipmap.logo_artesmarciales, R.mipmap.logo_atletismo,
+            R.mipmap.logo_badminton, R.mipmap.logo_ciclismo
     };
     private String[] mThumbNames= {
             "Fútball","Tenis",

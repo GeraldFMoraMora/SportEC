@@ -24,14 +24,11 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imagen_coche"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@color/colorAccent"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/key1" />
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/key1"
+                        android:scaleType="centerCrop" />
                 </RelativeLayout>
 
                 <TextView

@@ -28,13 +28,15 @@ public class ResultadoAdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titulo;
-        ImageView mImage;
+        private TextView titulo;
+        private TextView mMarcador;
+        private ImageView mImage;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
 
-            this.titulo = (TextView) itemView.findViewById(R.id.textview_resultado_marcador);
+            this.titulo = (TextView) itemView.findViewById(R.id.textview_resultado_partido);
+            this.mMarcador = (TextView) itemView.findViewById(R.id.textview_resultado_marcador); 
             this.mImage = (ImageView) itemView.findViewById(R.id.imageview_resultado_foto);
         }
     }
@@ -76,7 +78,8 @@ public class ResultadoAdapter extends RecyclerView.Adapter {
         if (object != null) {
             switch (object.type) {
                 case ResultadoModel.IMAGE_TYPE:
-                    ((ImageTypeViewHolder) holder).titulo.setText(object.text);
+                    ((ImageTypeViewHolder) holder).titulo.setText(object.mPartido);
+                    ((ImageTypeViewHolder) holder).mMarcador.setText(object.mMarcador);
                     ((ImageTypeViewHolder) holder).mImage.setImageResource(object.data);
                     break;
             }

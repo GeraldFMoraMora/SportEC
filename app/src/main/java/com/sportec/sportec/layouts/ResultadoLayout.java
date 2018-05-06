@@ -38,10 +38,10 @@ public class ResultadoLayout extends AppCompatActivity {
         setContentView(R.layout.layout_resultado);
 
         ArrayList<ResultadoModel> list= new ArrayList();
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Hello. This is the Text-only View Type. Nice to meet you",R.mipmap.grid4));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Hi. I display a cool image too besides the omnipresent TextView.",R.mipmap.grid1));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Hey. Pressing the FAB button will playback an audio file on loop.",R.mipmap.grid2));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Hi again. Another cool image here. Which one is better?",R.mipmap.grid3));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Barcelona - Real Madrid",R.mipmap.facebook_icon,"1-1"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"LDA - San Jose Anyermain",R.mipmap.facebook_icon,"5-1"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"PZ - Lemon FC",R.mipmap.facebook_icon,"3-2"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Perrediano - Darrisa",R.mipmap.facebook_icon,"0-0"));
 
         ResultadoAdapter adapter = new ResultadoAdapter(list,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);

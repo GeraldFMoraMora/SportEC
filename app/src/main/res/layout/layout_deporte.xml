@@ -8,11 +8,11 @@
         android:id="@+id/gridview_layout_deporte"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorAccent"
         android:columnWidth="120dp"
         android:horizontalSpacing="2dp"
         android:numColumns="auto_fit"
         android:padding="4dp"
-        android:verticalSpacing="2dp"
-        />
+        android:verticalSpacing="2dp" />
 
 </android.support.constraint.ConstraintLayout>

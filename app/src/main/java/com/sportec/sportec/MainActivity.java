@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }else if (id == R.id.nav_send) {
-            this.mScreen=new Intent(this, OpcionLayout.class);
+            this.mScreen=new Intent(this, DeporteLayout.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }

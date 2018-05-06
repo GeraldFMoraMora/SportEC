@@ -23,7 +23,7 @@
                 android:id="@+id/nav_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@mipmap/logo_sportec2"
+                android:src="@mipmap/splashlogoblanco"
                 android:textAlignment="viewStart" />
         </android.support.v7.widget.Toolbar>
 
@@ -83,7 +83,7 @@
                         android:id="@+id/cv"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        app:cardElevation="4dp"
+                        app:cardElevation="1dp"
                         app:cardUseCompatPadding="true">
 
                         <RelativeLayout
@@ -126,7 +126,7 @@
                         android:id="@+id/cv2"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        app:cardElevation="4dp"
+                        app:cardElevation="1dp"
                         app:cardUseCompatPadding="true">
 
                         <RelativeLayout
@@ -169,7 +169,7 @@
                         android:id="@+id/cv3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardElevation="4dp"
+                        app:cardElevation="1dp"
                         app:cardUseCompatPadding="true">
 
                         <RelativeLayout

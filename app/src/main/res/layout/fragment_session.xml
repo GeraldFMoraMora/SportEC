@@ -36,9 +36,9 @@
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/logo_sportec" />
+                        android:src="@mipmap/registrologo" />
 
                     <Space
                         android:layout_width="match_parent"

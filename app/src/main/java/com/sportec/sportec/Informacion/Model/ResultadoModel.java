@@ -9,12 +9,14 @@ public class ResultadoModel {
 
     public int type;
     public int data;
-    public String text;
+    public String mPartido;
+    public String mMarcador;
 
-    public ResultadoModel(int type, String text, int data)
+    public ResultadoModel(int type, String partido, int data, String marcador)
     {
         this.type=type;
         this.data=data;
-        this.text=text;
+        this.mPartido=partido;
+        this.mMarcador=marcador;
     }
 }

@@ -46,10 +46,10 @@ public class DeporteLayout extends AppCompatActivity{
 
     }
     public static Noticia[] ITEMS = {
-            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
-            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
-            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
-            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
+            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.logo_artesmarciales),
+            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.logo_atletismo),
+            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.logo_badminton),
+            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.logo_balonmano)
     };
     public static Noticia getItem(int id) {
         for (Noticia item : ITEMS) {
