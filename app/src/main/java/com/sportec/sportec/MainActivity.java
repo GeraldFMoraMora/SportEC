@@ -21,6 +21,7 @@ import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.fragments.SessionFragment;
+import com.sportec.sportec.gui.TabActivity;
 import com.sportec.sportec.layouts.DeporteLayout;
 import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity
             this.mLogoNav.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_share) {
-            this.mScreen=new Intent(this, EquipoLayout.class);
+            this.mScreen=new Intent(this, TabActivity.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }else if (id == R.id.nav_send) {

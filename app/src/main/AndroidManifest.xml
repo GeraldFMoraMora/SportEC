@@ -32,6 +32,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".layouts.EquipoLayout"
             android:screenOrientation="portrait"/>
+        <activity android:name=".gui.TabActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
