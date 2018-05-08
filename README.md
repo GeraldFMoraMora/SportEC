@@ -89,14 +89,17 @@ public  void onStart()  {  super.onStart();
 ```
 - Desde que un usuario accede a la aplicación, pasa la dirección de correo electrónico y la contraseña al método **createUserWithEmailAndPassword**:
 ```java
-mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  @Override  public  void onComplete(@NonNull  Task<AuthResult> task)  {  if  (task.isSuccessful())  {  
-	Log.d(TAG,  "createUserWithEmail:success");  
-	FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
-	} else  {  
-		Log.w(TAG,  "createUserWithEmail:failure",
-		task.getException());
-		Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
-		Toast.LENGTH_SHORT).show(); updateUI(null);  
+mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  	
+	@Override  
+	public  void onComplete(@NonNull  Task<AuthResult> task)  {  
+		if  (task.isSuccessful())  {  
+			Log.d(TAG,  "createUserWithEmail:success");  
+			FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+		} else  {  
+			Log.w(TAG,  "createUserWithEmail:failure",
+			task.getException());
+			Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
+			Toast.LENGTH_SHORT).show(); updateUI(null);  
 		}  
 	}  
 });
@@ -104,13 +107,16 @@ mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(th
 ### Abrir una cuenta basada en Correo y contraseña.
 - Desde que un usuario accede a la aplicación, pasa la dirección de correo electrónico y la contraseña al método **signInWithEmailAndPassword**:
 ```java
-mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  @Override  public  void onComplete(@NonNull  Task<AuthResult> task)  {  if  (task.isSuccessful())  {  
-	Log.d(TAG,  "signInWithEmail:success");  
-	FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
-	} else  {  
-		Log.w(TAG,  "signInWithEmail:failure", task.getException()); 
-		Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
-		Toast.LENGTH_SHORT).show(); updateUI(null);  
+mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  
+	@Override  
+	public  void onComplete(@NonNull  Task<AuthResult> task)  {  
+		if  (task.isSuccessful())  {  
+			Log.d(TAG,  "signInWithEmail:success");  
+			FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+		} else  {  
+			Log.w(TAG,  "signInWithEmail:failure", task.getException()); 
+			Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
+			Toast.LENGTH_SHORT).show(); updateUI(null);  
 		}  
 	}  
 });
@@ -118,4 +124,5 @@ mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this, 
 
 
 ## Delete a file
+
 
