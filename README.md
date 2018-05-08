@@ -1,21 +1,26 @@
 # SporTEC
 
 El objetivo de este proyecto es crear una aplicación en Android que consuma recursos de la plataforma **Firebase**.
+## Características del sistema.
+El sistema a implementar está relacionado con el deporte. Por medio de la aplicación se podrá hacer un seguimiento de noticias en cualquier lugar, en todo momento. También permite seguir eventos con toda la información al instante y resultados minuto a minuto en un solo lugar.
+Se puede crear equipos con una comunidad estudiantil para reunirse a practicar un deporte, además se puede incentivar la competitividad a través de retos, los cuales quedarán registrados en el historial y al equipo subirán de nivel en la tabla de posiciones.
 
 ## Conectar la aplicación con Firebase.
 
 - El desarrollador debe crear una cuenta en Firebase.
 - Debe crear un nuevo proyecto en Firebase que se llamara igual que el actual en desarrollo.
-- El nombre de paquete a seleccionar lo puede obtener del archivo **Manifest** (ej: `com.geraldpc.sportec`).
+- El nombre de paquete a seleccionar lo puede obtener del archivo **Manifest.xml** (ej: `com.geraldpc.sportec`).
 - Una vez creado, desde **Android Studio** dirigirse la pestaña **Tools -> Firebase**, ahí se desplegara un menú en la parte derecha de la aplicación donde podrá utilizar la característica de Firebase que necesite. Una vez seleccionada se debe seleccionar conecatr con Firebase.
 - Ahí se selecciona el proyecto creado desde la pagina principal y **listo!**, ya **Android Studio** se encargara de agregar el archivo **google-services.json** y dentro del archivo `build.gradle` (Project: Sportec) la dependencia `classpath 'com.google.gms:google-services:3.1.0'`.
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` implementation 'com.google.firebase:firebase-auth:11.0.4'``` y
 `implementation 'com.google.firebase:firebase-core:11.0.4'`
 > **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
+- No olvidar agregar el permiso de acceso a internet al archivo **Manifest.xml**: 
+`<uses-permission  android:name="android.permission.INTERNET"/>`
 
 
-## Autenticacion mediante el acceso con Facebook en Android.
+## Autenticación mediante el acceso con Facebook en Android.
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` implementation 'com.google.firebase:firebase-auth:11.0.4'```
@@ -28,3 +33,10 @@ El objetivo de este proyecto es crear una aplicación en Android que consuma rec
 - 3. Se debe agregar la dependencia para Facebook en `build.gradle` (Module: app): 
 ``` implementation 'com.facebook.android:facebook-android-sdk:[4,5)'```
 - Agregar el botón que proporciona Facebook a el Layout a utilizar, el mismo es modificable, se adapta al lenguaje que posea configurado el dispositivo y ademas de ello trae los métodos necesarios para la autenticación y verificación de un usuario.
+- No olvidar agregar el **Meta Data** al archivo **Manifest.xml**: 
+`<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />`
+
+
+
+
+## Autenticación mediante el acceso con Facebook en Android.
