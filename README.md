@@ -75,5 +75,47 @@ implementation 'com.google.firebase:firebase-auth:11.0.4'
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con correo electrónico, por lo cual se selecciona en la sección **Métodos de acceso** la opción **Correo electrónico/contraseña** y se habilita.
 ### Crear una cuenta basada en Correo y contraseña.
 - En el método `onCreate` de la actividad, se obtiene la instancia compartida del objeto 
+```java
+private  FirebaseAuth mAuth;  
+// ...mAuth =  FirebaseAuth.getInstance();
+```
+- Cuando se inicia el activity se verifica que el usuario haya accedido:
+```java
+@Override  
+public  void onStart()  {  super.onStart(); 
+	FirebaseUser currentUser = mAuth.getCurrentUser(); 
+	updateUI(currentUser);  
+}
+```
+- Desde que un usuario accede a la aplicación, pasa la dirección de correo electrónico y la contraseña al método **createUserWithEmailAndPassword**:
+```java
+mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  @Override  public  void onComplete(@NonNull  Task<AuthResult> task)  {  if  (task.isSuccessful())  {  
+	Log.d(TAG,  "createUserWithEmail:success");  
+	FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+	} else  {  
+		Log.w(TAG,  "createUserWithEmail:failure",
+		task.getException());
+		Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
+		Toast.LENGTH_SHORT).show(); updateUI(null);  
+		}  
+	}  
+});
+```
+### Abrir una cuenta basada en Correo y contraseña.
+- Desde que un usuario accede a la aplicación, pasa la dirección de correo electrónico y la contraseña al método **signInWithEmailAndPassword**:
+```java
+mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  @Override  public  void onComplete(@NonNull  Task<AuthResult> task)  {  if  (task.isSuccessful())  {  
+	Log.d(TAG,  "signInWithEmail:success");  
+	FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+	} else  {  
+		Log.w(TAG,  "signInWithEmail:failure", task.getException()); 
+		Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
+		Toast.LENGTH_SHORT).show(); updateUI(null);  
+		}  
+	}  
+});
+```
 
+
+## Delete a file
 
