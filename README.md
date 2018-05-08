@@ -94,7 +94,8 @@ mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(th
 	public  void onComplete(@NonNull  Task<AuthResult> task)  {  
 		if  (task.isSuccessful())  {  
 			Log.d(TAG,  "createUserWithEmail:success");  
-			FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+			FirebaseUser user = mAuth.getCurrentUser(); 
+			updateUI(user);  
 		} else  {  
 			Log.w(TAG,  "createUserWithEmail:failure",
 			task.getException());
@@ -112,7 +113,8 @@ mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this, 
 	public  void onComplete(@NonNull  Task<AuthResult> task)  {  
 		if  (task.isSuccessful())  {  
 			Log.d(TAG,  "signInWithEmail:success");  
-			FirebaseUser user = mAuth.getCurrentUser(); updateUI(user);  
+			FirebaseUser user = mAuth.getCurrentUser(); 
+			updateUI(user);  
 		} else  {  
 			Log.w(TAG,  "signInWithEmail:failure", task.getException()); 
 			Toast.makeText(EmailPasswordActivity.this,  "Authentication failed.",  
@@ -156,7 +158,7 @@ function writeUserData(userId, name, email, imageUrl)  {
 		});  
 	}
 ```
-#### Gestión de los datos (Borrado y actualización).
+### Gestión de los datos (Borrado y actualización).
 - #### Actualización.
 - Para escribir de forma simultánea en elementos secundarios específicos de un nodo sin sobrescribir otros nodos secundarios, se usa el método **update()**.
 - Al utilizar la funcion **update()**, se puede definir una ruta de acceso de la clave para actualizar valores secundarios de nivel inferior.
@@ -180,5 +182,4 @@ function writeNewPost(uid, username, picture, title, body)  {
 >**Nota**: Para borrar se puede especificar **null** como el valor de otra operación de escritura, como **set()** o **update()**.
 
 ## Export a file
-
 
