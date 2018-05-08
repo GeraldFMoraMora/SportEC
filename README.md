@@ -23,7 +23,9 @@ Se puede crear equipos con una comunidad estudiantil para reunirse a practicar u
 ## Autenticación mediante el acceso con Facebook en Android.
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
-``` implementation 'com.google.firebase:firebase-auth:11.0.4'```
+``` 
+implementation 'com.google.firebase:firebase-auth:11.0.4'
+```
 > **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
 - Acceder al sitio web [Facebook for Developers](https://developers.facebook.com/) para obtener el **ID de la app** y el **Secreto de app** de la app .
 > **Nota**: Este último se obtiene de la sección **Configuración -> información básica** en el apartado **Clave secreta de la aplicación**.
@@ -31,14 +33,18 @@ Se puede crear equipos con una comunidad estudiantil para reunirse a practicar u
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con Facebook, por lo cual se selecciona en la sección **Métodos de acceso** la opción Facebook, desde ahí se pueden ingresar el **ID de la app** y el **Secreto de app** de la app y se habilita el método. 
 - 2. La direccion **URI de redireccionamiento de OAuth**, debe aparecer entre los **URI de redireccionamiento de OAuth** en la página de configuración de la app de Facebook, en el sitio [Facebook for Developers](https://developers.facebook.com/), en la configuración de **Product Settings > Facebook Login**.
 - 3. Los Hashes de clave son generados mediante la herramienta de Java llamada **Keytool**, para ello se debe instalar [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) en caso de no tenerlo y buscar la ubicación de instalación y su carpeta bin para luego setear la sentencia que generara el código Hash de 28 dígitos. La sentencia que se debe ingresar al **cmd de Windows** o el **Terminal de Android Studio** es:
- ```
+```
 keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USER\.android\debug.keystore" | "C:\Users\USER\openssl\bin\openssl" sha1 -binary | "C:\Users\USER\openssl\bin\openssl" base64
 ```
 - 4. Se debe agregar la dependencia para Facebook en `build.gradle` (Module: app): 
-``` implementation 'com.facebook.android:facebook-android-sdk:[4,5)'```
+``` 
+implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+```
 - Agregar el botón que proporciona Facebook a el Layout a utilizar, el mismo es modificable, se adapta al lenguaje que posea configurado el dispositivo y ademas de ello trae los métodos necesarios para la autenticación y verificación de un usuario.
 - No olvidar agregar el **Meta Data** al archivo **Manifest.xml**: 
-`<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />`
+```
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+```
 
 
 
@@ -46,10 +52,14 @@ keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USER\.android\deb
 ## Autenticación mediante el acceso con Google en Android.
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
-``` implementation 'com.google.firebase:firebase-auth:11.0.4'```
+``` 
+implementation 'com.google.firebase:firebase-auth:11.0.4'
+```
 > **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
 - Se debe agregar la dependencia para Google Authentication al archivo `build.gradle` (Module: app): 
-- `compile 'com.google.android.gms:play-services-auth:11.0.4'`
+```
+compile 'com.google.android.gms:play-services-auth:11.0.4'
+```
 - Se debe asegurar en el administrador de SDK en la seccion **SDK TOOLS** que ya exista instalado **Google Play Services** para Android Studio. En caso contrario se debe instalar.
 - Habilitar el acceso:
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con Google, por lo cual se selecciona en la sección **Métodos de acceso** la opción **Google** y se habilita, los demás pasos ahí presentados son opcionales.
@@ -57,9 +67,13 @@ keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USER\.android\deb
 ## Autenticación mediante el acceso con Correo en Android.
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
-``` implementation 'com.google.firebase:firebase-auth:11.0.4'```
+``` 
+implementation 'com.google.firebase:firebase-auth:11.0.4'
+```
 > **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
 - Habilitar el acceso:
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con correo electrónico, por lo cual se selecciona en la sección **Métodos de acceso** la opción **Correo electrónico/contraseña** y se habilita.
 ### Crear una cuenta basada en Correo y contraseña.
 - En el método `onCreate` de la actividad, se obtiene la instancia compartida del objeto 
+
+
