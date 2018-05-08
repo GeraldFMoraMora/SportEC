@@ -132,6 +132,13 @@ public class MainActivity extends AppCompatActivity
             this.mScreen=new Intent(this, DeporteLayout.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
+        }else if (id == R.id.nav_send1) {
+            this.mScreen=new Intent(this, OpcionLayout.class);
+            startActivity(this.mScreen);
+            this.mLogoNav.setVisibility(View.VISIBLE);
+        }else if (id == R.id.nav_send2) {
+            this.showDeporteFavoritoFragment();
+            this.mLogoNav.setVisibility(View.VISIBLE);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
