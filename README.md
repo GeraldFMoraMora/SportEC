@@ -4,6 +4,16 @@ El objetivo de este proyecto es crear una aplicación en Android que consuma rec
 ## Características del sistema.
 El sistema a implementar está relacionado con el deporte. Por medio de la aplicación se podrá hacer un seguimiento de noticias en cualquier lugar, en todo momento. También permite seguir eventos con toda la información al instante y resultados minuto a minuto en un solo lugar.
 Se puede crear equipos con una comunidad estudiantil para reunirse a practicar un deporte, además se puede incentivar la competitividad a través de retos, los cuales quedarán registrados en el historial y al equipo subirán de nivel en la tabla de posiciones.
+## Instalación.
+- Se debe almacenar el archivo ejecutable SporTEC.apk en el dispositivo, ejecutarlo una vez hecho esto, brindarle los permisos necesarios y por ultimo lanzar el ejecutable almacenado en el cajon de aplicaciones con el nombre SporTEC.
+
+## Requisitos del sistema (Hardware & Software).
+- Sistema Operativo **Android** version minima 4.2 (Jelly Bean, API level 17) o hasta la version maxima 8.1 (Oreo, API level 27).
+- Memoria RAM 1.5GB o superior.
+- Espacio de almacenamiento 200MB.
+- Pantalla de 4.5" o superior.
+- Acceso a Internet.
+- Camara digital.
 
 ## Conectar la aplicación con Firebase.
 
@@ -182,4 +192,9 @@ function writeNewPost(uid, username, picture, title, body)  {
 >**Nota**: Para borrar se puede especificar **null** como el valor de otra operación de escritura, como **set()** o **update()**.
 
 ## Export a file
+
+You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+
+
+# Synchronization
 
