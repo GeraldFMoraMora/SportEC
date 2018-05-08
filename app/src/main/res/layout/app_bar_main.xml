@@ -227,11 +227,32 @@
 
                     </android.support.v7.widget.CardView>
 
-                    <Button
-                        android:id="@+id/button3"
+                    <TextView
+                        android:id="@+id/token_user_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Button" />
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/correo_user_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/nombre_user_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                    <Button
+                        android:id="@+id/cerrar_session_buttom_app_nav_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/holo_red_dark"
+                        android:onClick="logOut"
+                        android:text="Cerrar Sesión"
+                        android:textColor="@color/blanco" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

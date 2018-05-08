@@ -2,6 +2,7 @@ package com.sportec.sportec;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -16,7 +17,14 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
@@ -26,9 +34,23 @@ import com.sportec.sportec.layouts.DeporteLayout;
 import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
 import com.sportec.sportec.layouts.ResultadoLayout;
+import com.sportec.sportec.layouts.SessionLayout;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements GoogleApiClient.OnConnectionFailedListener,
+        NavigationView.OnNavigationItemSelectedListener,
         NoticiaFragment.OnFragmentInteractionListener,
         SessionFragment.OnFragmentInteractionListener,
         FormularioResgistroFragment.OnFragmentInteractionListener,
@@ -41,15 +63,56 @@ public class MainActivity extends AppCompatActivity
     private GridView mGridView;
 
     private ImageView mImagenNoticia;
-    private TextView MTituloNoticia;
+    private TextView mTituloNoticia;
+
+    private ImageView mFotoPerfil;
+    private TextView mNombreUsuario;
+    private TextView mCorreoUsuario;
+    private TextView mTokenUsuario;
+
+    private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mFirebaseAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        this.mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         this.mLogoNav= (ImageView) findViewById(R.id.nav_logo);
+
+        this.mNombreUsuario = (TextView) findViewById(R.id.nombre_user_textview);
+        this.mCorreoUsuario = (TextView) findViewById(R.id.correo_user_textview);
+        this.mTokenUsuario = (TextView) findViewById(R.id.token_user_textview);
+
+        /** Se obtiene la instancia de FirebaseAut*/
+        this.mFirebaseAuth = FirebaseAuth.getInstance();
+
+        /** Se debe configurar Google SignIn para obtener el Id de usuario, correo, foto de perfil e
+         inclusive otra informacion basica, cada request obtiene alguna de estas peticiones.*/
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        this.mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        /** El siguiente es el listener que escucha los cambios de estado para el autenticador de Firebase*/
+        this.mFirebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    setUserData(user);
+                }else{
+                    goLogInScreen();
+                }
+            }
+        };
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +181,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
             this.mLogoNav.setVisibility(View.INVISIBLE);
-            this.showSessionFragment();
+            this.mScreen=new Intent(this, SessionLayout.class);
+            startActivity(this.mScreen);
 
         } else if (id == R.id.nav_manage) {
             this.showRegistroFragment();
@@ -177,5 +241,46 @@ public class MainActivity extends AppCompatActivity
                         DeporteFavoritoFragment.newInstance(""))
                 .commit();
     }
+    private void setUserData(FirebaseUser user) {
+        mNombreUsuario.setText(user.getDisplayName());
+        mCorreoUsuario.setText(user.getEmail());
+        mTokenUsuario.setText(user.getUid());
+        //Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
+    }
 
+    private void goLogInScreen() {
+        Intent intent = new Intent(this, SessionLayout.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+    public void logOut(View view) {
+        mFirebaseAuth.signOut();
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()) {
+                    goLogInScreen();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.no_google_session_cerrar, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mFirebaseAuthListener);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mFirebaseAuthListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mFirebaseAuthListener);
+        }
+    }
 }
