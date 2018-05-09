@@ -5,16 +5,12 @@ package com.sportec.sportec.Informacion;
  */
 
 public class Deporte {
-    private String mFoto;
-    private String mNombre;
-    public String[] mAficionado;
-    public String[] mEquipo;
+    public String foto;
+    public String nombre;
 
     public Deporte(){}
-    public Deporte(String foto, String nombre, String[] aficionado, String[] equipo){
-        this.mFoto=foto;
-        this.mNombre=nombre;
-        this.mAficionado=aficionado;
-        this.mEquipo=equipo;
+    public Deporte(String foto, String nombre){
+        this.foto=foto;
+        this.nombre=nombre;
     }
 }

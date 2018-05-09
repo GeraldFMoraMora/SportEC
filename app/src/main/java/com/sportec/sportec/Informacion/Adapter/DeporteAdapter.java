@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.sportec.sportec.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by GeraldMM on 05/05/2018.
  */
@@ -22,17 +25,18 @@ public class DeporteAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return mThumbIds().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        ImageView imageView = new ImageView(mContext);
+        return imageView;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -56,16 +60,47 @@ public class DeporteAdapter extends BaseAdapter {
         imageView = (ImageView) convertView.findViewById(R.id.imagen_coche);
         imageView.setBackgroundColor(Color.WHITE);
         textView = (TextView) convertView.findViewById(R.id.nombre_coche);
-        imageView.setImageResource(mThumbIds[position]);
-        textView.setText(mThumbNames[position]);
+        imageView.setImageResource(mThumbIds().get(position));
+        textView.setText(mThumbNames().get(position));
+
+
         return convertView;
     }
-    private Integer[] mThumbIds = {
-            R.mipmap.logo_artesmarciales, R.mipmap.logo_atletismo,
-            R.mipmap.logo_badminton, R.mipmap.logo_ciclismo
-    };
-    private String[] mThumbNames= {
-            "Fútball","Tenis",
-            "Surf","Kayak"
-    };
+
+    private List<Integer> mThumbIds() {
+        List<Integer> myList = new ArrayList<Integer>();
+        myList.add(R.mipmap.logo_artesmarciales);
+        myList.add(R.mipmap.logo_atletismo);
+        myList.add(R.mipmap.logo_badminton);
+        myList.add(R.mipmap.logo_balonmano);
+        myList.add(R.mipmap.logo_baseball);
+        myList.add(R.mipmap.logo_basquetball);
+        myList.add(R.mipmap.logo_ciclismo);
+        myList.add(R.mipmap.logo_fisicoculturismo);
+        myList.add(R.mipmap.logo_futball);
+        myList.add(R.mipmap.logo_kayak);
+        myList.add(R.mipmap.logo_pinpong);
+        myList.add(R.mipmap.logo_sgrima);
+        myList.add(R.mipmap.logo_tennis);
+        myList.add(R.mipmap.logo_volleyball);
+        return myList;
+    }
+    private List<String> mThumbNames() {
+        List<String> myList = new ArrayList<String>();
+        myList.add("Artes marciales");
+        myList.add("Atletismo");
+        myList.add("Badminton");
+        myList.add("Balon mano");
+        myList.add("Baseball");
+        myList.add("Basketball");
+        myList.add("Ciclismo");
+        myList.add("Levantamiento de pesas");
+        myList.add("Futball");
+        myList.add("Kayak");
+        myList.add("Ping pong");
+        myList.add("Esgrima");
+        myList.add("Tennis");
+        myList.add("Volleyball");
+        return myList;
+    }
 }
