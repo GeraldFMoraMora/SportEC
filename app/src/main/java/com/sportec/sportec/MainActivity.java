@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,34 +27,29 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.sportec.sportec.Informacion.Usuario;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
-import com.sportec.sportec.fragments.SessionFragment;
 import com.sportec.sportec.gui.TabActivity;
 import com.sportec.sportec.layouts.DeporteLayout;
-import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
 import com.sportec.sportec.layouts.ResultadoLayout;
 import com.sportec.sportec.layouts.SessionLayout;
-import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener,
         NavigationView.OnNavigationItemSelectedListener,
         NoticiaFragment.OnFragmentInteractionListener,
-        SessionFragment.OnFragmentInteractionListener,
         FormularioResgistroFragment.OnFragmentInteractionListener,
         DeporteFavoritoFragment.OnFragmentInteractionListener{
 
@@ -66,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mTituloNoticia;
 
     private ImageView mFotoPerfil;
+    private LinearLayout mLinearLayout;
     private TextView mNombreUsuario;
     private TextView mCorreoUsuario;
     private TextView mTokenUsuario;
@@ -73,6 +71,9 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mFirebaseAuthListener;
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +84,19 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         this.mLogoNav= (ImageView) findViewById(R.id.nav_logo);
 
-        this.mNombreUsuario = (TextView) findViewById(R.id.nombre_user_textview);
-        this.mCorreoUsuario = (TextView) findViewById(R.id.correo_user_textview);
+        this.mLinearLayout = (LinearLayout) findViewById(R.id.contenedor_nav_header_main_linearlayout);
+
+        this.mNombreUsuario = (TextView) findViewById(R.id.nombre_usuario_nav_header_main_textview);
+        this.mCorreoUsuario = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
         this.mTokenUsuario = (TextView) findViewById(R.id.token_user_textview);
+
+        //this.mNombreUsuario.setText("");
+        //this.mCorreoUsuario.setText("");
+
+        //BjjnZXxWjeO5DqcSv6eXXihjd8G53
+        this.mDatabase = FirebaseDatabase.getInstance();
+        this.mDatabaseReference = mDatabase.getReference();
+
 
         /** Se obtiene la instancia de FirebaseAut*/
         this.mFirebaseAuth = FirebaseAuth.getInstance();
@@ -107,7 +118,19 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    setUserData(user);
+                    TextView nombreUsuario1 = (TextView) findViewById(R.id.nombre_usuario_nav_header_main_textview);
+                    TextView correoUsuario1 = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
+                    TextView tokenUsuario1 = (TextView) findViewById(R.id.token_user_textview);
+                    if (nombreUsuario1!=null){
+                        nombreUsuario1.setText(user.getDisplayName());
+                        correoUsuario1.setText(user.getEmail());
+                        guardarUsuario(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
+                        Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),user.getEmail().toString(), Toast.LENGTH_SHORT).show();
+                    }
+
                 }else{
                     goLogInScreen();
                 }
@@ -131,6 +154,37 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Read from the database
+        //DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = this.mDatabaseReference.child("usuario");
+
+        //Query phoneQuery = ref.equalTo("usuario");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    Usuario user = singleSnapshot.getValue(Usuario.class);
+                    System.out.println(user.mNombre);
+                    System.out.println(user.mCorreo);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    /**
+     * Metodo para guardar un usuario en la base de datos
+     * @param idUsuario
+     * @param nombreUsuario
+     * @param correoUsuario
+     * @param foto
+     */
+    private void guardarUsuario(String idUsuario, String nombreUsuario, String correoUsuario, String foto){
+        Usuario usuario = new Usuario(nombreUsuario,correoUsuario, foto);
+        mDatabaseReference.child("usuario").child(idUsuario).setValue(usuario);
     }
 
     @Override
@@ -203,6 +257,21 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_send2) {
             this.showDeporteFavoritoFragment();
             this.mLogoNav.setVisibility(View.VISIBLE);
+        }else if (id == R.id.nav_salir) {
+            finish();
+            mFirebaseAuth.signOut();
+
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    if (status.isSuccess()) {
+                        goLogInScreen();
+                    } else {
+                        Toast.makeText(getApplicationContext(), R.string.no_google_session_cerrar, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            this.mLogoNav.setVisibility(View.VISIBLE);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -215,14 +284,6 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
                         NoticiaFragment.newInstance(""))
-                .commit();
-    }
-    private void showSessionFragment() {
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_activity_fragment,
-                        SessionFragment.newInstance(""))
                 .commit();
     }
     private void showRegistroFragment() {
@@ -242,16 +303,18 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
     private void setUserData(FirebaseUser user) {
-        mNombreUsuario.setText(user.getDisplayName());
-        mCorreoUsuario.setText(user.getEmail());
+        //mNombreUsuario.setText(user.getDisplayName());
+        //mCorreoUsuario.setText(user.getEmail());
         mTokenUsuario.setText(user.getUid());
         //Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
 
     private void goLogInScreen() {
+        finish();
         Intent intent = new Intent(this, SessionLayout.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
     }
     public void logOut(View view) {
         mFirebaseAuth.signOut();

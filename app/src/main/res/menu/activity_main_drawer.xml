@@ -42,5 +42,17 @@
                 android:title="Deportes Favoritos" />
         </menu>
     </item>
+    <item android:title="Sesión">
+        <menu>
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Cerrar sesión" />
+            <item
+                android:id="@+id/perfil"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Perfil" />
+        </menu>
+    </item>
 
 </menu>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -73,6 +74,7 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+
                     goMainScreen();
                 }
             }
@@ -127,6 +129,8 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
                 if (!task.isSuccessful()) {
                     //En caso de que no se haya podido autenticar con Firebase Auth.
                     Toast.makeText(getApplicationContext(), R.string.no_google_auth, Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(SessionLayout.this,MainActivity.class));
                 }
             }
         });
@@ -136,9 +140,11 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
      * Metodo que me envia a la pagina principal de la app una vez hay un usuario conectado
      */
     private void goMainScreen() {
+        finish();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
     }
     /**
      * Metodo autogenerado
