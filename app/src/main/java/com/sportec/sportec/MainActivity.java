@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity
     private ImageView mImagenNoticia;
     private TextView mTituloNoticia;
 
+    public String mTituloNoticiaDia;
+    public String mFotoNoticiaDia;
+    public String mDescripcionDia;
+
     private ImageView mFotoPerfil;
     private LinearLayout mLinearLayout;
     private TextView mNombreUsuario;
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity
                     if (nombreUsuario1!=null){
                         nombreUsuario1.setText(user.getDisplayName());
                         correoUsuario1.setText(user.getEmail());
-                        guardarUsuario(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
+                        //guardarUsuario(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
                         Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
@@ -187,10 +191,16 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
-                    list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion));
+                    list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia));
 
-                    
-                    Picasso.get().load(noticia.foto).into(mImagenNoticia);
+                    if (noticia.dia){
+                        Picasso.get().load(noticia.foto).into(mImagenNoticia);
+                        mTituloNoticia.setText(noticia.titulo);
+                        mTituloNoticiaDia=noticia.titulo;
+                        mFotoNoticiaDia=noticia.foto;
+                        mDescripcionDia=noticia.descripcion;
+                    }
+
                     System.out.println(noticia.titulo);
                     System.out.println(noticia.foto);
                     System.out.println(noticia.descripcion);
@@ -318,7 +328,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
-                        NoticiaFragment.newInstance(""))
+                        NoticiaFragment.newInstance(mTituloNoticiaDia,mFotoNoticiaDia, mDescripcionDia))
                 .commit();
     }
     private void showRegistroFragment() {
@@ -345,7 +355,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void goLogInScreen() {
-        finish();
         Intent intent = new Intent(this, SessionLayout.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

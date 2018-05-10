@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.SessionFragment">
+    tools:context=".layouts.SessionLayout">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -45,7 +45,7 @@
                         android:layout_height="54dp" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/usuario_correo_iniciosession_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -58,7 +58,7 @@
                         android:layout_height="13dp" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/usuario_contrasena_inicio_session_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -71,11 +71,12 @@
                         android:layout_height="13dp" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/iniciar_session_buttom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#a70000"
                         android:text="INICIAR SESIÓN"
+                        android:onClick="onClick"
                         android:textColor="#FFF" />
 
                     <Space
@@ -98,10 +99,11 @@
                         android:text="O " />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/registrarse_session_buttom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="onClick"
                         android:text="Registrarse"
                         android:textColor="@android:color/holo_blue_light" />
                 </LinearLayout>

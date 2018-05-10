@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sportec.sportec.MainActivity;
 import com.sportec.sportec.R;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -23,9 +26,15 @@ public class NoticiaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String mTitulo;
+    private String mFoto;
+    private String mDescripcion;
+    private boolean dia;
+
 
     private TextView mRegisterTextView;
 
@@ -35,9 +44,15 @@ public class NoticiaFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static NoticiaFragment newInstance(String json) {
+    public static NoticiaFragment newInstance(String titulo, String foto, String descripcion) {
         NoticiaFragment fragment = new NoticiaFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, titulo);
+        args.putString(ARG_PARAM2, foto);
+        args.putString(ARG_PARAM3, descripcion);
+        fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -50,6 +65,18 @@ public class NoticiaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_noticias, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        String mFotoNoticiaDia = activity.mFotoNoticiaDia;
+        String mTituloNoticiaDia = activity.mTituloNoticiaDia;
+        String mDescripcionDia = activity.mDescripcionDia;
+
+        ImageView mImagenNoticia=(ImageView) view.findViewById(R.id.noticias_foto_fragment_noticias_imageview);
+        TextView mTituloNoticia=(TextView) view.findViewById(R.id.noticias_titulo_fragment_noticias_textview);
+        TextView mDescripcionNoticia=(TextView) view.findViewById(R.id.noticia_descripcion_fragment_noticias_textview);
+        mTituloNoticia.setText(mTituloNoticiaDia);
+        mDescripcionNoticia.setText(mDescripcionDia);
+        Picasso.get().load(mFotoNoticiaDia).into(mImagenNoticia);
         /**view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
         if (mListener != null) {

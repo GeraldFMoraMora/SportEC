@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,9 +42,20 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient mGoogleApiClient;
 
+    private EditText mNombreEdit;
+    private EditText mCorreoEdit;
+    private EditText mContrasenaEdit;
+
+    private static final String TAG = "CustomAuthActivity";
+
+    private FirebaseAuth mAuth;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_session);
+
+        this.mCorreoEdit = (EditText) findViewById(R.id.usuario_correo_iniciosession_edittext);
+        this.mContrasenaEdit = (EditText) findViewById(R.id.usuario_contrasena_inicio_session_edittext);
 
         /** Se obtiene la instancia de FirebaseAut*/
         this.mFirebaseAuth = FirebaseAuth.getInstance();
@@ -140,11 +153,55 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
      * Metodo que me envia a la pagina principal de la app una vez hay un usuario conectado
      */
     private void goMainScreen() {
-        finish();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
+    }
+    public void connectAccount(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(SessionLayout.this, "Conectado correctamente",
+                                    Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            mFirebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+                                @Override
+                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                                    if (user != null) {
+
+                                        goMainScreen();
+                                    }
+                                }
+                            };
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SessionLayout.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+
+                });
+
+    }
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Toast.makeText(SessionLayout.this, "User ID: " + user.getUid(),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(SessionLayout.this, "Error: sign in failed.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
     /**
      * Metodo autogenerado
@@ -165,6 +222,17 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
 
         if (mFirebaseAuthListener != null) {
             mFirebaseAuth.removeAuthStateListener(mFirebaseAuthListener);
+        }
+    }
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iniciar_session_buttom:
+                connectAccount(mCorreoEdit.getText().toString(),mContrasenaEdit.getText().toString());
+                startActivity(new Intent(SessionLayout.this,MainActivity.class));
+                break;
+            case R.id.registrarse_session_buttom:
+                startActivity(new Intent(SessionLayout.this,FormularioRegistroLayout.class));
+                break;
         }
     }
 }

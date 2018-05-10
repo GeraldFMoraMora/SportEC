@@ -2,8 +2,15 @@ package com.sportec.sportec.layouts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -26,7 +33,7 @@ import com.sportec.sportec.R;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class DeporteLayout extends AppCompatActivity{
+public class DeporteLayout extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private GridView mGridView;
 
     private Intent mScreen;
@@ -44,6 +51,9 @@ public class DeporteLayout extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_deporte);
+
+        this.mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         GridView gridview = (GridView) findViewById(R.id.gridview_layout_deporte);
         gridview.setAdapter(new DeporteAdapter(this));
@@ -78,5 +88,10 @@ public class DeporteLayout extends AppCompatActivity{
             }
         });
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }

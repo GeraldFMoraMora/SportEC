@@ -33,25 +33,4 @@ public class Noticia {
     public void setmFecha(Date fecha){this.mFecha=fecha;}
     public void setmImagen(int imagen){this.mImagen=imagen;}
 
-    public static Noticia[] ITEMS = {
-            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.grid1),
-            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.grid2),
-            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.grid3),
-            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.grid4)
-    };
-    /**
-     * Obtiene item basado en su identificador
-     *
-     * @param id identificador
-     * @return Coche
-     */
-    public static Noticia getItem(int id) {
-        for (Noticia item : ITEMS) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
-    }
-
 }

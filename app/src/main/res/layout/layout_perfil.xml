@@ -62,7 +62,7 @@
                         android:layout_height="30dp" />
 
                     <EditText
-                        android:id="@+id/usuario_nombre_formulario_registro_textedit"
+                        android:id="@+id/usuario_nombre_formulario_perfil_textedit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -75,10 +75,11 @@
                         android:layout_height="13dp" />
 
                     <EditText
-                        android:id="@+id/usuario_correo_formulario_registro_textedit"
+                        android:id="@+id/usuario_correo_formulario_perfil_textedit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="Correo electrónico"
                         android:textAlignment="center" />
 
@@ -87,11 +88,12 @@
                         android:layout_height="13dp" />
 
                     <EditText
-                        android:id="@+id/usuario_contrasena_formulario_registro_edittex"
+                        android:id="@+id/usuario_contrasena_formulario_perfil_edittex"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Contraseña"
+                        android:enabled="false"
                         android:inputType="textPassword"
                         android:textAlignment="center" />
 
@@ -100,12 +102,12 @@
                         android:layout_height="13dp" />
 
                     <Button
-                        android:id="@+id/rigistrar_formulario_registro_button"
+                        android:id="@+id/actualizar_formulario_registro_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#a70000"
-                        android:text="Registrar"
                         android:onClick="onClick"
+                        android:text="Actualizar"
                         android:textColor="#fff" />
 
                     <Space
@@ -113,12 +115,12 @@
                         android:layout_height="24dp" />
 
                     <TextView
-                        android:id="@+id/cancelar_formulario_registro_textview"
+                        android:id="@+id/salir_perfil_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="onClick"
                         android:text="O cancelar"
                         android:textAlignment="center"
-                        android:onClick="onClick"
                         android:textColor="@android:color/holo_red_dark"
                         tools:text="O cancelar" />
 
