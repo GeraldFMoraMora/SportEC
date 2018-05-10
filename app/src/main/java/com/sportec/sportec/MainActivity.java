@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -39,8 +40,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sportec.sportec.Informacion.Adapter.BusquedaAdapter;
 import com.sportec.sportec.Informacion.Adapter.MiembroAdapter;
 import com.sportec.sportec.Informacion.Adapter.NoticiaMainAdapter;
+import com.sportec.sportec.Informacion.ConstantInterface;
 import com.sportec.sportec.Informacion.Model.MiembroModel;
 import com.sportec.sportec.Informacion.Model.NoticiaMainModel;
 import com.sportec.sportec.Informacion.Noticia;
@@ -49,6 +52,7 @@ import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.gui.TabActivity;
+import com.sportec.sportec.layouts.BusquedaLayout;
 import com.sportec.sportec.layouts.DeporteLayout;
 import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<NoticiaMainModel> list;
 
-
+    private CardView mCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +115,6 @@ public class MainActivity extends AppCompatActivity
 
         this.mNombreUsuario = (TextView) findViewById(R.id.nombre_usuario_nav_header_main_textview);
         this.mCorreoUsuario = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
-        this.mTokenUsuario = (TextView) findViewById(R.id.token_user_textview);
 
         this.mImagenNoticia=(ImageView) findViewById(R.id.noticia_foto_dia_imageview);
         this.mTituloNoticia=(TextView) findViewById(R.id.noticia_titulo_dia_textview);
@@ -146,7 +149,6 @@ public class MainActivity extends AppCompatActivity
                 if (user != null) {
                     TextView nombreUsuario1 = (TextView) findViewById(R.id.nombre_usuario_nav_header_main_textview);
                     TextView correoUsuario1 = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
-                    TextView tokenUsuario1 = (TextView) findViewById(R.id.token_user_textview);
                     if (nombreUsuario1!=null){
                         correoUsuario1.setText(user.getEmail());
                         //guardarUsuario(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
@@ -155,9 +157,6 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        //Toast.makeText(getApplicationContext(),"Bienvenido ", Toast.LENGTH_LONG).show();
-                        //Toast.makeText(getApplicationContext(),user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getApplicationContext(),user.getEmail().toString(), Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
@@ -188,7 +187,7 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
-                    list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia));
+                    list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia,noticia.id));
 
                     if (noticia.dia){
                         Picasso.get().load(noticia.foto).into(mImagenNoticia);
@@ -197,12 +196,56 @@ public class MainActivity extends AppCompatActivity
                         mFotoNoticiaDia=noticia.foto;
                         mDescripcionDia=noticia.descripcion;
                     }
-
-                    System.out.println(noticia.titulo);
-                    System.out.println(noticia.foto);
-                    System.out.println(noticia.descripcion);
                 }
-                NoticiaMainAdapter adapter = new NoticiaMainAdapter(list,MainActivity.this);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
+                    //list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia,noticia.id));
+
+
+                    //Picasso.get().load(noticia.foto).into(mImagenNoticia);
+                    //mTituloNoticia.setText(noticia.titulo);
+                    //mTituloNoticiaDia=noticia.titulo;
+                    //mFotoNoticiaDia=noticia.foto;
+                    //mDescripcionDia=noticia.descripcion;
+
+                }
+                NoticiaMainAdapter adapter = new NoticiaMainAdapter(list, MainActivity.this, new ConstantInterface() {
+                    @Override
+                    public void onClick(View v, final int position) {
+                        DatabaseReference ref = mDatabaseReference.child("noticia");
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                                    NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
+
+                                    if (String.valueOf(noticia.id.equals(String.valueOf(position)))=="true"){
+                                        mTituloNoticiaDia=noticia.titulo;
+                                        mFotoNoticiaDia=noticia.foto;
+                                        mDescripcionDia=noticia.descripcion;
+                                        getSupportFragmentManager()
+                                                .beginTransaction()
+                                                .replace(R.id.main_activity_fragment,
+                                                        NoticiaFragment.newInstance(noticia.titulo,noticia.foto, noticia.descripcion))
+                                                .commit();
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                });
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, OrientationHelper.VERTICAL, false);
 
                 RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.noticia_app_bar_main_recyclerview);
@@ -254,11 +297,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            startActivity(new Intent(MainActivity.this, BusquedaLayout.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view){
+        this.mCardView= (CardView) findViewById(R.id.card_view);
+        TextView textView= (TextView) findViewById(R.id.noticia_titulo_layout_card_textview);
+        switch (view.getId()){
+            case R.id.noticia_dia_app_bar_main:
+                this.mLogoNav.setVisibility(View.VISIBLE);
+                //this.showNoticiaFragment(mTituloNoticiaDia,mFotoNoticiaDia,mDescripcionDia);
+                break;
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -271,9 +326,9 @@ public class MainActivity extends AppCompatActivity
             this.mScreen=new Intent(this, ResultadoLayout.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
-        } else if (id == R.id.nav_gallery) {
+        }else if (id == R.id.nav_gallery) {
             this.mLogoNav.setVisibility(View.VISIBLE);
-            this.showPrincipalFragment();
+            //this.showNoticiaFragment();
 
         } else if (id == R.id.nav_slideshow) {
             this.mLogoNav.setVisibility(View.INVISIBLE);
@@ -293,7 +348,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }else if (id == R.id.nav_send1) {
-            this.mScreen=new Intent(this, OpcionLayout.class);
+            this.mScreen=new Intent(this, MainActivity.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }else if (id == R.id.nav_send2) {
@@ -324,12 +379,12 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void showPrincipalFragment() {
+    private void showNoticiaFragment(String TituloNoticiaDia,String FotoNoticiaDia,String DescripcionDia) {
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_activity_fragment,
-                        NoticiaFragment.newInstance(mTituloNoticiaDia,mFotoNoticiaDia, mDescripcionDia))
+                        NoticiaFragment.newInstance(TituloNoticiaDia,FotoNoticiaDia, DescripcionDia))
                 .commit();
     }
     private void showRegistroFragment() {

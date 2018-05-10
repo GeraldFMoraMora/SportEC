@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sportec.sportec.Informacion.Model.MiembroModel;
+import com.sportec.sportec.Informacion.Model.BusquedaModel;
+import com.sportec.sportec.Informacion.Model.ResultadoModel;
 import com.sportec.sportec.R;
 import com.squareup.picasso.Picasso;
 
@@ -18,86 +19,66 @@ import java.util.ArrayList;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class MiembroAdapter extends RecyclerView.Adapter {
-    private ArrayList<MiembroModel> dataSet;
+public class BusquedaAdapter extends RecyclerView.Adapter {
+    private ArrayList<BusquedaModel> dataSet;
     Context mContext;
     int total_types;
 
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titulo;
-        ImageView mImage;
+        private TextView titulo;
+        private TextView mDescripcion;
+        private ImageView mImage;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
 
-            this.titulo = (TextView) itemView.findViewById(R.id.textview_miembro_nombre);
-            this.mImage = (ImageView) itemView.findViewById(R.id.imageview_miembro_foto);
+            this.titulo = (TextView) itemView.findViewById(R.id.textview_busqueda_nombre);
+            this.mDescripcion = (TextView) itemView.findViewById(R.id.textview_busqueda_descripcion);
+            this.mImage = (ImageView) itemView.findViewById(R.id.imageview_busqueda_foto);
         }
     }
 
 
-    /**
-     * Constructor
-     * @param data
-     * @param context
-     */
-    public MiembroAdapter(ArrayList<MiembroModel>data, Context context) {
+    public BusquedaAdapter(ArrayList<BusquedaModel>data, Context context) {
         this.dataSet = data;
         this.mContext = context;
         total_types = dataSet.size();
     }
 
-    /**Metodo en el cual se monta el card  view sobre el layout
-     *
-     * @param parent
-     * @param viewType
-     * @return
-     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view;
         switch (viewType) {
-            case MiembroModel.IMAGE_TYPE:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_miembro_item, parent, false);
+            case BusquedaModel.IMAGE_TYPE:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_busqueda_item, parent, false);
                 return new ImageTypeViewHolder(view);
         }
         return null;
     }
 
-    /**
-     * El adaptador recibe un tipo que quiere decir si va a cargar una imagen o un audio
-     * @param position
-     * @return
-     */
     @Override
     public int getItemViewType(int position) {
 
         switch (dataSet.get(position).type) {
             case 0:
-                return MiembroModel.IMAGE_TYPE;
+                return BusquedaModel.IMAGE_TYPE;
             default:
                 return -1;
         }
     }
 
-    /**
-     * En este metodo se le cargan los datos a los cardview
-     * @param holder
-     * @param listPosition
-     */
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        MiembroModel object = dataSet.get(listPosition);
+        BusquedaModel object = dataSet.get(listPosition);
         if (object != null) {
             switch (object.type) {
-                case MiembroModel.IMAGE_TYPE:
-                    ((ImageTypeViewHolder) holder).titulo.setText(object.text);
-                    Context mContext1=((ImageTypeViewHolder) holder).mImage.getContext();
-                    int idFoto= mContext1.getResources().getIdentifier(object.foto,"mipmap",mContext1.getPackageName());
+                case BusquedaModel.IMAGE_TYPE:
+                    ((ImageTypeViewHolder) holder).titulo.setText(object.mPartido);
+                    ((ImageTypeViewHolder) holder).mDescripcion.setText(object.mDescripcion);
                     Picasso.get().load(object.foto).into(((ImageTypeViewHolder) holder).mImage);
                     break;
             }

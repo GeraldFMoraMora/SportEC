@@ -45,8 +45,10 @@
 
 
             <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/noticia_dia_app_bar_main"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="200dp"
+                android:onClick="onClick">
 
                 <ImageView
                     android:id="@+id/noticia_foto_dia_imageview"
@@ -84,44 +86,10 @@
                         android:layout_height="match_parent"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                    <TextView
-                        android:id="@+id/token_user_textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/correo_user_textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/nombre_user_textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <Button
-                        android:id="@+id/cerrar_session_buttom_app_nav_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/holo_red_dark"
-                        android:onClick="logOut"
-                        android:text="Cerrar Sesión"
-                        android:textColor="@color/blanco" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
 
     </FrameLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

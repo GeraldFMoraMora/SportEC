@@ -12,14 +12,16 @@ public class NoticiaMainModel {
     public String titulo;
     public String descripcion;
     public boolean dia;
+    public String id;
 
     public NoticiaMainModel(){}
-    public NoticiaMainModel(int type, String text, String foto,String descripcion,boolean dia)
+    public NoticiaMainModel(int type, String text, String foto,String descripcion,boolean dia, String id)
     {
         this.type=type;
         this.foto=foto;
         this.titulo=text;
         this.descripcion=descripcion;
         this.dia=dia;
+        this.id=id;
     }
 }

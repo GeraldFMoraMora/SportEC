@@ -226,4 +226,9 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
                 break;
         }
     }
+
+    @Override
+    public void onClick(View v, int position) {
+
+    }
 }
