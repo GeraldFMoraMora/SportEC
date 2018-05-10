@@ -10,10 +10,10 @@ import java.util.Date;
 
 public class Noticia {
 
-    private String mTitulo;
-    private String mDescripcion;
-    private Date mFecha;
-    private int mImagen;
+    public String mTitulo;
+    public String mDescripcion;
+    public Date mFecha;
+    public int mImagen;
 
     public Noticia(String titulo, String descripcion, Date fecha, int  imagen){
         this.mTitulo=titulo;

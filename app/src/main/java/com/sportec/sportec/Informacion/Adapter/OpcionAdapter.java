@@ -59,8 +59,8 @@ public class OpcionAdapter extends BaseAdapter {
         return convertView;
     }
     private Integer[] mThumbIds = {
-            R.mipmap.grid1, R.mipmap.grid2,
-            R.mipmap.grid3
+            R.mipmap.historial_logo, R.mipmap.equipo_logo,
+            R.mipmap.reto_logo
     };
     private String[] mThumbNames= {
             "Historial","Equipo",

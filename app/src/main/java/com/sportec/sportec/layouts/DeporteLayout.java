@@ -53,7 +53,7 @@ public class DeporteLayout extends AppCompatActivity{
                                     int position, long id) {
                 Toast.makeText(DeporteLayout.this, "" + id,
                         Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(DeporteLayout.this, EquipoLayout.class);
+                Intent intent = new Intent(DeporteLayout.this, OpcionLayout.class);
                 intent.putExtra("id",id);
                 startActivity(intent);
             }
@@ -78,19 +78,5 @@ public class DeporteLayout extends AppCompatActivity{
             }
         });
 
-    }
-    public static Noticia[] ITEMS = {
-            new Noticia("Uno","uno", new java.util.Date(), R.mipmap.logo_artesmarciales),
-            new Noticia("Dos","dos", new java.util.Date(),R.mipmap.logo_atletismo),
-            new Noticia("Tres","tres", new java.util.Date(),R.mipmap.logo_badminton),
-            new Noticia("Cuatro","cuatro", new java.util.Date(),R.mipmap.logo_balonmano)
-    };
-    public static Noticia getItem(int id) {
-        for (Noticia item : ITEMS) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
     }
 }

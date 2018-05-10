@@ -49,14 +49,14 @@
                 android:layout_height="200dp">
 
                 <ImageView
-                    android:id="@+id/imagen_coche"
+                    android:id="@+id/noticia_foto_dia_imageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/key1"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/key1" />
 
                 <TextView
-                    android:id="@+id/nombre_coche"
+                    android:id="@+id/noticia_titulo_dia_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -78,154 +78,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cv"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        app:cardElevation="1dp"
-                        app:cardUseCompatPadding="true">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/person_photo"
-                                android:layout_width="72dp"
-                                android:layout_height="72dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginRight="16dp"
-                                android:src="@mipmap/tony" />
-
-                            <TextView
-                                android:id="@+id/person_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_toRightOf="@+id/person_photo"
-                                android:text="Tony Hawk Wants Skateboarding to Be Part of the Olympics"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/person_age"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/person_name"
-                                android:layout_toRightOf="@+id/person_photo"
-                                android:text="Olympic organizers have proposed adding five new sports to the Tokyo games in 2020, including skateboarding. While the Olympic committee debates which ones will make the cut—their final decision will..." />
-
-                        </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cv2"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        app:cardElevation="1dp"
-                        app:cardUseCompatPadding="true">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/person_photo2"
-                                android:layout_width="72dp"
-                                android:layout_height="72dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginRight="16dp"
-                                android:src="@mipmap/messi" />
-
-                            <TextView
-                                android:id="@+id/person_name2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_toRightOf="@+id/person_photo2"
-                                android:text="Goleador del año"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/person_age2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/person_name2"
-                                android:layout_toRightOf="@+id/person_photo2"
-                                android:text="Messi alcanza su gol número 34 de la segunda temporada del 2018, sobrepasando..." />
-
-                        </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cv3"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/noticia_app_bar_main_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardElevation="1dp"
-                        app:cardUseCompatPadding="true">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/person_photo3"
-                                android:layout_width="72dp"
-                                android:layout_height="72dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginRight="16dp"
-                                android:src="@mipmap/mia" />
-
-                            <TextView
-                                android:id="@+id/person_name3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_toRightOf="@+id/person_photo3"
-                                android:text="Mia Kalifa returns"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/person_age3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/person_name3"
-                                android:layout_toRightOf="@+id/person_photo3"
-                                android:text="Eso dicen, yo no se la dvd xdxdxd :v" />
-
-                        </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        card_view:cardCornerRadius="4dp"
-                        card_view:cardBackgroundColor="@android:color/white"
-                        card_view:cardUseCompatPadding="true"
-                        card_view:cardElevation="4dp">
-                        <!--By Mark Gurney [CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons -->
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/key1"
-                            android:adjustViewBounds="true"
-                            />
-
-                    </android.support.v7.widget.CardView>
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                     <TextView
                         android:id="@+id/token_user_textview"

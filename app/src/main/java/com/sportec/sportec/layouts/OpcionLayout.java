@@ -27,12 +27,15 @@ public class OpcionLayout extends AppCompatActivity {
     private Toolbar mToolbar;
     private ImageView mLogoNav;
 
-    private ImageView mImagenNoticia;
-    private TextView MTituloNoticia;
+    private Long mId;
+    private Intent mIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_opcion);
+
+        this.mId = getIntent().getLongExtra("id",0);
 
         GridView gridview = (GridView) findViewById(R.id.gridview_layout_opcion);
         gridview.setAdapter(new OpcionAdapter(this));
@@ -42,6 +45,24 @@ public class OpcionLayout extends AppCompatActivity {
                                     int position, long id) {
                 Toast.makeText(OpcionLayout.this, "" + position,
                         Toast.LENGTH_SHORT).show();
+
+                switch (position){
+                    case 0:
+                        mIntent = new Intent(OpcionLayout.this, EquipoLayout.class);
+                        mIntent.putExtra("id",mId);
+                        startActivity(mIntent);
+                        break;
+                    case 1:
+                        mIntent = new Intent(OpcionLayout.this, EquipoLayout.class);
+                        mIntent.putExtra("id",mId);
+                        startActivity(mIntent);
+                        break;
+                    case 2:
+                        mIntent = new Intent(OpcionLayout.this, EquipoLayout.class);
+                        mIntent.putExtra("id",mId);
+                        startActivity(mIntent);
+                        break;
+                }
             }
         });
 

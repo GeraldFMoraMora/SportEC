@@ -1,10 +1,15 @@
 package com.sportec.sportec;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -34,17 +39,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sportec.sportec.Informacion.Adapter.MiembroAdapter;
+import com.sportec.sportec.Informacion.Adapter.NoticiaMainAdapter;
+import com.sportec.sportec.Informacion.Model.MiembroModel;
+import com.sportec.sportec.Informacion.Model.NoticiaMainModel;
+import com.sportec.sportec.Informacion.Noticia;
 import com.sportec.sportec.Informacion.Usuario;
 import com.sportec.sportec.fragments.DeporteFavoritoFragment;
 import com.sportec.sportec.fragments.FormularioResgistroFragment;
 import com.sportec.sportec.fragments.NoticiaFragment;
 import com.sportec.sportec.gui.TabActivity;
 import com.sportec.sportec.layouts.DeporteLayout;
+import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
 import com.sportec.sportec.layouts.ResultadoLayout;
 import com.sportec.sportec.layouts.SessionLayout;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener,
@@ -75,6 +89,10 @@ public class MainActivity extends AppCompatActivity
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
 
+    private ArrayList<NoticiaMainModel> list;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +107,9 @@ public class MainActivity extends AppCompatActivity
         this.mNombreUsuario = (TextView) findViewById(R.id.nombre_usuario_nav_header_main_textview);
         this.mCorreoUsuario = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
         this.mTokenUsuario = (TextView) findViewById(R.id.token_user_textview);
+
+        this.mImagenNoticia=(ImageView) findViewById(R.id.noticia_foto_dia_imageview);
+        this.mTituloNoticia=(TextView) findViewById(R.id.noticia_titulo_dia_textview);
 
         //this.mNombreUsuario.setText("");
         //this.mCorreoUsuario.setText("");
@@ -155,24 +176,38 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        this.list= new ArrayList();
         // Read from the database
         //DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = this.mDatabaseReference.child("usuario");
+        DatabaseReference ref = this.mDatabaseReference.child("noticia");
 
         //Query phoneQuery = ref.equalTo("usuario");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Usuario user = singleSnapshot.getValue(Usuario.class);
-                    System.out.println(user.mNombre);
-                    System.out.println(user.mCorreo);
+                    NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
+                    list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion));
+
+                    
+                    Picasso.get().load(noticia.foto).into(mImagenNoticia);
+                    System.out.println(noticia.titulo);
+                    System.out.println(noticia.foto);
+                    System.out.println(noticia.descripcion);
                 }
+                NoticiaMainAdapter adapter = new NoticiaMainAdapter(list,MainActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, OrientationHelper.VERTICAL, false);
+
+                RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.noticia_app_bar_main_recyclerview);
+                mRecyclerView.setLayoutManager(linearLayoutManager);
+                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                mRecyclerView.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
     }
 
     /**

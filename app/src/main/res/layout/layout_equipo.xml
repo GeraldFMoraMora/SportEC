@@ -22,7 +22,7 @@
                 android:src="@mipmap/key1" />
 
             <TextView
-                android:id="@+id/nombre_coche"
+                android:id="@+id/nombre_equipo_layout_equipo_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
