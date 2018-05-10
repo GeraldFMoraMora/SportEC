@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sportec.sportec.Informacion.Model.MiembroModel;
 import com.sportec.sportec.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -74,7 +75,9 @@ public class MiembroAdapter extends RecyclerView.Adapter {
             switch (object.type) {
                 case MiembroModel.IMAGE_TYPE:
                     ((ImageTypeViewHolder) holder).titulo.setText(object.text);
-                    ((ImageTypeViewHolder) holder).mImage.setImageResource(object.data);
+                    Context mContext1=((ImageTypeViewHolder) holder).mImage.getContext();
+                    int idFoto= mContext1.getResources().getIdentifier(object.foto,"mipmap",mContext1.getPackageName());
+                    Picasso.get().load(object.foto).into(((ImageTypeViewHolder) holder).mImage);
                     break;
             }
         }

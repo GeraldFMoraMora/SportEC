@@ -8,13 +8,13 @@ public class MiembroModel {
     public static final int IMAGE_TYPE=0;
 
     public int type;
-    public int data;
     public String text;
+    public String foto;
 
-    public MiembroModel(int type, String text, int data)
+    public MiembroModel(int type, String text, String foto)
     {
         this.type=type;
-        this.data=data;
         this.text=text;
+        this.foto=foto;
     }
 }

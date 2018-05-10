@@ -80,7 +80,7 @@ public class EquipoLayout extends AppCompatActivity{
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     Usuario user = singleSnapshot.getValue(Usuario.class);
                     System.out.println(user.mNombre);
-                    list.add(new MiembroModel(MiembroModel.IMAGE_TYPE,user.mNombre,R.mipmap.messi));
+                    list.add(new MiembroModel(MiembroModel.IMAGE_TYPE,user.mNombre,user.mFoto.toString()));
                 }
                 MiembroAdapter adapter = new MiembroAdapter(list,EquipoLayout.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(EquipoLayout.this, OrientationHelper.VERTICAL, false);
