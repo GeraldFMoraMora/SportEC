@@ -59,6 +59,7 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
 
         /** Se obtiene la instancia de FirebaseAut*/
         this.mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         /** Se debe configurar Google SignIn para obtener el Id de usuario, correo, foto de perfil e
          inclusive otra informacion basica, cada request obtiene alguna de estas peticiones.*/
@@ -159,7 +160,7 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
 
     }
     public void connectAccount(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
+        mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -168,17 +169,7 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
                             Log.d(TAG, "createUserWithEmail:success");
                             Toast.makeText(SessionLayout.this, "Conectado correctamente",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            mFirebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-                                @Override
-                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                                    if (user != null) {
-
-                                        goMainScreen();
-                                    }
-                                }
-                            };
+                            FirebaseUser user = mFirebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -228,7 +219,7 @@ public class SessionLayout extends AppCompatActivity implements GoogleApiClient.
         switch (view.getId()){
             case R.id.iniciar_session_buttom:
                 connectAccount(mCorreoEdit.getText().toString(),mContrasenaEdit.getText().toString());
-                startActivity(new Intent(SessionLayout.this,MainActivity.class));
+                //startActivity(new Intent(SessionLayout.this,MainActivity.class));
                 break;
             case R.id.registrarse_session_buttom:
                 startActivity(new Intent(SessionLayout.this,FormularioRegistroLayout.class));

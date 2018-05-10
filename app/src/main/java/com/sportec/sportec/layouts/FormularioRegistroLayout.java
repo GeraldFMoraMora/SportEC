@@ -1,5 +1,6 @@
 package com.sportec.sportec.layouts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -61,11 +62,12 @@ public class FormularioRegistroLayout extends AppCompatActivity implements View.
 
 
     }
+    @Override
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rigistrar_formulario_registro_button:
                 createAccount(mCorreoEdit.getText().toString(),mContrasenaEdit.getText().toString());
-                this.guardarUsuario("user"+mNombreEdit.getText().toString(), mNombreEdit.getText().toString(), mCorreoEdit.getText().toString(),"https://firebasestorage.googleapis.com/v0/b/sportec-cf3d1.appspot.com/o/logos%2Fapplogo.png?alt=media&token=23851c7f-9a06-469b-92b0-831364336591");
+                startActivity(new Intent(FormularioRegistroLayout.this,MainActivity.class));
                 break;
             case R.id.cancelar_formulario_registro_textview:
                 break;
@@ -89,6 +91,8 @@ public class FormularioRegistroLayout extends AppCompatActivity implements View.
                             Toast.makeText(FormularioRegistroLayout.this, "Cuenta creada correctamente",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            guardarUsuario(user.getUid().toString(), mNombreEdit.getText().toString(), mCorreoEdit.getText().toString(),"https://firebasestorage.googleapis.com/v0/b/sportec-cf3d1.appspot.com/o/logos%2Fapplogo.png?alt=media&token=23851c7f-9a06-469b-92b0-831364336591");
+
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -136,4 +140,6 @@ public class FormularioRegistroLayout extends AppCompatActivity implements View.
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

@@ -1,13 +1,19 @@
 package com.sportec.sportec.layouts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -16,13 +22,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sportec.sportec.Informacion.Usuario;
+import com.sportec.sportec.MainActivity;
 import com.sportec.sportec.R;
 
 /**
  * Created by GeraldMM on 10/05/2018.
  */
 
-public class PerfilLayout extends AppCompatActivity implements View.OnClickListener{
+public class PerfilLayout extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener{
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
 
@@ -35,14 +43,21 @@ public class PerfilLayout extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "CustomAuthActivity";
     private String mCustomToken;
 
+    private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mFirebaseAuthListener;
+
+    private EditText nombreUsuario1;
+    private EditText correoUsuario1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_formulario_resgistro);
+        setContentView(R.layout.layout_perfil);
 
-        this.mNombreEdit = (EditText) findViewById(R.id.usuario_nombre_formulario_registro_textedit);
-        this.mCorreoEdit = (EditText) findViewById(R.id.usuario_correo_formulario_registro_textedit);
-        this.mContrasenaEdit = (EditText) findViewById(R.id.usuario_contrasena_formulario_registro_edittex);
+        this.mNombreEdit = (EditText) findViewById(R.id.usuario_nombre);
+        this.mCorreoEdit = (EditText) findViewById(R.id.usuario_correo);
+        this.mContrasenaEdit = (EditText) findViewById(R.id.usuario_contrasena);
 
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mDatabaseReference = mDatabase.getReference();
@@ -50,14 +65,44 @@ public class PerfilLayout extends AppCompatActivity implements View.OnClickListe
         this.mAuth = FirebaseAuth.getInstance();
 
 
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        this.mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        /** El siguiente es el listener que escucha los cambios de estado para el autenticador de Firebase*/
+        this.mFirebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+
+                    startActivity(new Intent(PerfilLayout.this,MainActivity.class));
+                }
+            }
+        };
+
+
     }
     public void onClick(View view){
+
+        //EditText nombreUsuario1 = (EditText) findViewById(R.id.usuario_nombre_formulario_perfil_textedit);
+        //EditText correoUsuario1 = (EditText) findViewById(R.id.usuario_correo_formulario_perfil_textedit);
+        FirebaseUser user = mAuth.getCurrentUser();
         switch (view.getId()){
-            case R.id.rigistrar_formulario_registro_button:
-                createAccount(mCorreoEdit.getText().toString(),mContrasenaEdit.getText().toString());
-                this.guardarUsuario("user"+mNombreEdit.getText().toString(), mNombreEdit.getText().toString(), mCorreoEdit.getText().toString(),"https://firebasestorage.googleapis.com/v0/b/sportec-cf3d1.appspot.com/o/logos%2Fapplogo.png?alt=media&token=23851c7f-9a06-469b-92b0-831364336591");
+
+            case R.id.actualizar_formulario_registro_button:
+                //createAccount(mCorreoEdit.getText().toString(),mContrasenaEdit.getText().toString());
+                this.guardarUsuario(user.getUid(), mNombreEdit.getText().toString(), mCorreoEdit.getText().toString(),"https://firebasestorage.googleapis.com/v0/b/sportec-cf3d1.appspot.com/o/logos%2Fapplogo.png?alt=media&token=23851c7f-9a06-469b-92b0-831364336591");
+                startActivity(new Intent(PerfilLayout.this, MainActivity.class));
                 break;
-            case R.id.cancelar_formulario_registro_textview:
+            case R.id.salir_perfil_textview:
+                startActivity(new Intent(PerfilLayout.this, MainActivity.class));
                 break;
         }
     }
@@ -101,6 +146,7 @@ public class PerfilLayout extends AppCompatActivity implements View.OnClickListe
      * @param foto
      */
     private void guardarUsuario(String idUsuario, String nombreUsuario, String correoUsuario, String foto){
+        FirebaseUser user;
         Usuario usuario = new Usuario(nombreUsuario,correoUsuario, foto);
         mDatabaseReference.child("usuario").child(idUsuario).setValue(usuario);
     }
@@ -119,11 +165,18 @@ public class PerfilLayout extends AppCompatActivity implements View.OnClickListe
      */
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Toast.makeText(PerfilLayout.this, "User ID: " + user.getUid(),
-                    Toast.LENGTH_SHORT).show();
+            EditText mNombreEdit = (EditText) findViewById(R.id.usuario_nombre);
+            EditText mCorreoEdit = (EditText) findViewById(R.id.usuario_correo);
+            mNombreEdit.setText(user.getDisplayName());
+            mCorreoEdit.setText(user.getEmail());
         } else {
             Toast.makeText(PerfilLayout.this, "Error: sign in failed.",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

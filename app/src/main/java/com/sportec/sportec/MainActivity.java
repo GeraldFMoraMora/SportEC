@@ -52,6 +52,7 @@ import com.sportec.sportec.gui.TabActivity;
 import com.sportec.sportec.layouts.DeporteLayout;
 import com.sportec.sportec.layouts.EquipoLayout;
 import com.sportec.sportec.layouts.OpcionLayout;
+import com.sportec.sportec.layouts.PerfilLayout;
 import com.sportec.sportec.layouts.ResultadoLayout;
 import com.sportec.sportec.layouts.SessionLayout;
 import com.google.android.gms.common.api.ResultCallback;
@@ -147,13 +148,16 @@ public class MainActivity extends AppCompatActivity
                     TextView correoUsuario1 = (TextView) findViewById(R.id.correo_usuario_nav_header_main_textview);
                     TextView tokenUsuario1 = (TextView) findViewById(R.id.token_user_textview);
                     if (nombreUsuario1!=null){
-                        nombreUsuario1.setText(user.getDisplayName());
                         correoUsuario1.setText(user.getEmail());
                         //guardarUsuario(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
-                        Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                        if (user.getDisplayName()!=null){
+                            nombreUsuario1.setText(user.getDisplayName());
+                            Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                        }
                     }else{
-                        Toast.makeText(getApplicationContext(),"Bienvenido "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),user.getEmail().toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),"Bienvenido ", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),user.getEmail().toString(), Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
@@ -162,14 +166,7 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -316,6 +313,10 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             });
+            this.mLogoNav.setVisibility(View.VISIBLE);
+        }else if (id == R.id.nav_perfil) {
+            this.mScreen=new Intent(this, PerfilLayout.class);
+            startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
         }
 

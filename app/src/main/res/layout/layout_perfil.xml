@@ -62,7 +62,7 @@
                         android:layout_height="30dp" />
 
                     <EditText
-                        android:id="@+id/usuario_nombre_formulario_perfil_textedit"
+                        android:id="@+id/usuario_nombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -75,7 +75,7 @@
                         android:layout_height="13dp" />
 
                     <EditText
-                        android:id="@+id/usuario_correo_formulario_perfil_textedit"
+                        android:id="@+id/usuario_correo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -88,13 +88,14 @@
                         android:layout_height="13dp" />
 
                     <EditText
-                        android:id="@+id/usuario_contrasena_formulario_perfil_edittex"
+                        android:id="@+id/usuario_contrasena"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Contraseña"
                         android:enabled="false"
+                        android:hint="Contraseña"
                         android:inputType="textPassword"
+                        android:text="***********"
                         android:textAlignment="center" />
 
                     <Space
