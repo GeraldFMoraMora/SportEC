@@ -169,7 +169,7 @@ function writeUserData(userId, name, email, imageUrl)  {
 	}
 ```
 ### Gestión de los datos (Borrado y actualización).
-- #### Actualización.
+#### Actualización.
 - Para escribir de forma simultánea en elementos secundarios específicos de un nodo sin sobrescribir otros nodos secundarios, se usa el método **update()**.
 - Al utilizar la funcion **update()**, se puede definir una ruta de acceso de la clave para actualizar valores secundarios de nivel inferior.
 ```java
@@ -187,13 +187,45 @@ function writeNewPost(uid, username, picture, title, body)  {
 	return firebase.database().ref().update(updates);
 }
 ```
-- #### Borrado.
+#### Borrado.
 - Para borrar datos se necesita llamar a la función **remove()** haciendo una referencia a la ubicación de los datos.
 >**Nota**: Para borrar se puede especificar **null** como el valor de otra operación de escritura, como **set()** o **update()**.
 
-## Export a file
+## Adherir almacenamiento en la nube al proyecto
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
+``` implementation 'com.google.firebase:firebase-auth:11.0.4'``` y
+`implementation 'com.google.firebase:firebase-core:11.0.4'`
+> **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
+
+No olvidar agregar el permiso de acceso a internet al archivo **Manifest.xml**: 
+`<uses-permission  android:name="android.permission.INTERNET"/>`
+
+Se debe agregar la dependencia para Firebase storage al archivo `build.gradle` (Module: app): 
+``` 
+implementation 'com.google.firebase:firebase-storage:11.0.4'
+``` 
+> **Nota**: Notese que la versión de firebase storage es la misma que para auth y core firebase.
+### Reglas de seguridad
+Según la configuración predeterminada, las reglas permiten todas las operaciones de lectura y escritura. Cuando se defina la estructura de datos, se deberá crear reglas para proteger los datos específicos de la aplicación.
+``` json
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+``` 
+### Crear una referencia.
+Para poder acceder a la nube de almacenamiento se debe crear la instancia de **FirebaseStorage**:
+``` java
+private StorageReference mStorageFerence;
+``` 
+``` java
+mStorageFerence = FirebaseStorage.getInstance().getReference();
+``` 
+
 
 
 # Synchronization
