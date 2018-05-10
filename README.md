@@ -208,7 +208,7 @@ implementation 'com.google.firebase:firebase-storage:11.0.4'
 > **Nota**: Notese que la versión de firebase storage es la misma que para auth y core firebase.
 ### Reglas de seguridad
 Según la configuración predeterminada, las reglas permiten todas las operaciones de lectura y escritura. Cuando se defina la estructura de datos, se deberá crear reglas para proteger los datos específicos de la aplicación.
-``` json
+``` java
 service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
@@ -226,7 +226,36 @@ private StorageReference mStorageFerence;
 mStorageFerence = FirebaseStorage.getInstance().getReference();
 ``` 
 
+## Adherir imagen en la nube al proyecto
+Para esto se van a utilizar cualquiera de las dos herramientas:
+- **Piccaso**
+- **Glide**
+### Picasso
+Se debe hacer la implementación de **Picasso** en el archivo `build.gradle` (Module: app): 
+```
+implementation 'com.squareup.picasso:picasso:2.71828'
+```
+> **Nota**: La versión picasso:2.71828 es independiente de la versión de Firebase, si es que se esta utilizando.
 
+Para cargar una imagen a un image view se puede hacer en una sola linea de codigo como esta: 
+``` java
+Picasso.get().load("https://URI/imagen.png").into(imageView);
+```
+#### Ventajas:
+- Manejo del reciclaje y descarga de ImageView en un adaptador.
+- Transformaciones de imagen complejas en imágenes con uso mínimo de memoria.
+- Memoria automática y almacenamiento en caché.
 
-# Synchronization
+### Glide
+Se debe hacer la implementación de **Glide** en el archivo `build.gradle` (Module: app): 
+```
+compile 'com.github.bumptech.glide:glide:3.7.0'
+```
+Para cargar una imagen a un image view se puede hacer en una sola linea de codigo como esta: 
+```java
+Glide.with(this).load("https://URI/imagen.png").into(imageView);
+```
+#### Ventajas:
+- Comparte las características de sus similares como Picasso.
+- A diferencia de todos los demás, este tiene un tiempo de carga de imágenes aun mas corto, lo que ofrece una gran ventaja sobre los demás.
 
