@@ -169,7 +169,7 @@ function writeUserData(userId, name, email, imageUrl)  {
 	}
 ```
 ### Gestión de los datos (Borrado y actualización).
-- #### Actualización.
+#### Actualización.
 - Para escribir de forma simultánea en elementos secundarios específicos de un nodo sin sobrescribir otros nodos secundarios, se usa el método **update()**.
 - Al utilizar la funcion **update()**, se puede definir una ruta de acceso de la clave para actualizar valores secundarios de nivel inferior.
 ```java
@@ -187,14 +187,75 @@ function writeNewPost(uid, username, picture, title, body)  {
 	return firebase.database().ref().update(updates);
 }
 ```
-- #### Borrado.
+#### Borrado.
 - Para borrar datos se necesita llamar a la función **remove()** haciendo una referencia a la ubicación de los datos.
 >**Nota**: Para borrar se puede especificar **null** como el valor de otra operación de escritura, como **set()** o **update()**.
 
-## Export a file
+## Adherir almacenamiento en la nube al proyecto
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
+``` implementation 'com.google.firebase:firebase-auth:11.0.4'``` y
+`implementation 'com.google.firebase:firebase-core:11.0.4'`
+> **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
 
+No olvidar agregar el permiso de acceso a internet al archivo **Manifest.xml**: 
+`<uses-permission  android:name="android.permission.INTERNET"/>`
 
-# Synchronization
+Se debe agregar la dependencia para Firebase storage al archivo `build.gradle` (Module: app): 
+``` 
+implementation 'com.google.firebase:firebase-storage:11.0.4'
+``` 
+> **Nota**: Notese que la versión de firebase storage es la misma que para auth y core firebase.
+### Reglas de seguridad
+Según la configuración predeterminada, las reglas permiten todas las operaciones de lectura y escritura. Cuando se defina la estructura de datos, se deberá crear reglas para proteger los datos específicos de la aplicación.
+``` java
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+``` 
+### Crear una referencia.
+Para poder acceder a la nube de almacenamiento se debe crear la instancia de **FirebaseStorage**:
+``` java
+private StorageReference mStorageFerence;
+``` 
+``` java
+mStorageFerence = FirebaseStorage.getInstance().getReference();
+``` 
+
+## Adherir imagen en la nube al proyecto
+Para esto se van a utilizar cualquiera de las dos herramientas:
+- **Piccaso**
+- **Glide**
+### Picasso
+Se debe hacer la implementación de **Picasso** en el archivo `build.gradle` (Module: app): 
+```
+implementation 'com.squareup.picasso:picasso:2.71828'
+```
+> **Nota**: La versión picasso:2.71828 es independiente de la versión de Firebase, si es que se esta utilizando.
+
+Para cargar una imagen a un image view se puede hacer en una sola linea de codigo como esta: 
+``` java
+Picasso.get().load("https://URI/imagen.png").into(imageView);
+```
+#### Ventajas:
+- Manejo del reciclaje y descarga de ImageView en un adaptador.
+- Transformaciones de imagen complejas en imágenes con uso mínimo de memoria.
+- Memoria automática y almacenamiento en caché.
+
+### Glide
+Se debe hacer la implementación de **Glide** en el archivo `build.gradle` (Module: app): 
+```
+compile 'com.github.bumptech.glide:glide:3.7.0'
+```
+Para cargar una imagen a un image view se puede hacer en una sola linea de codigo como esta: 
+```java
+Glide.with(this).load("https://URI/imagen.png").into(imageView);
+```
+#### Ventajas:
+- Comparte las características de sus similares como Picasso.
+- A diferencia de todos los demás, este tiene un tiempo de carga de imágenes aun mas corto, lo que ofrece una gran ventaja sobre los demás.
 
