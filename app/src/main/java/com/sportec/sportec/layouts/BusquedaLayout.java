@@ -28,6 +28,7 @@ import com.sportec.sportec.Informacion.Model.ResultadoModel;
 import com.sportec.sportec.MainActivity;
 import com.sportec.sportec.R;
 import com.sportec.sportec.fragments.NoticiaFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class BusquedaLayout extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mDatabase;
 
-    private ArrayList<NoticiaMainModel> list;
+    private ArrayList list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,8 @@ public class BusquedaLayout extends AppCompatActivity {
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mDatabaseReference = mDatabase.getReference();
 
+        this.metodoBusquedas();
+
     }
     public void metodoBusquedas(){
         DatabaseReference ref = this.mDatabaseReference.child("noticia");
@@ -77,45 +80,17 @@ public class BusquedaLayout extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
+                    BusquedaModel noticia = singleSnapshot.getValue(BusquedaModel.class);
+                    list.add(new BusquedaModel(BusquedaModel.IMAGE_TYPE,noticia.mPartido,noticia.foto,noticia.mDescripcion));
 
                 }
-                NoticiaMainAdapter adapter = new NoticiaMainAdapter(list, BusquedaLayout.this, new ConstantInterface() {
-                    @Override
-                    public void onClick(View v, final int position) {
-                        DatabaseReference ref = mDatabaseReference.child("noticia");
-                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                                    NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
 
-                                    if (String.valueOf(noticia.id.equals(String.valueOf(position)))=="true"){
-                                        getSupportFragmentManager()
-                                                .beginTransaction()
-                                                .replace(R.id.main_activity_fragment,
-                                                        NoticiaFragment.newInstance(noticia.titulo,noticia.foto, noticia.descripcion))
-                                                .commit();
-                                    }
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-                    }
-                });
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BusquedaLayout.this, OrientationHelper.VERTICAL, false);
-
-                RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.noticia_app_bar_main_recyclerview);
-                mRecyclerView.setLayoutManager(linearLayoutManager);
-                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                mRecyclerView.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
 
     }
     public void onClick(View view){

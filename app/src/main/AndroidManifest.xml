@@ -30,20 +30,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".layouts.OpcionLayout"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity android:name=".layouts.ResultadoLayout"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity android:name=".layouts.EquipoLayout"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity android:name=".gui.TabActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".layouts.SessionLayout"
             android:screenOrientation="portrait"
             android:label="@string/session_name"/>
-        <activity android:name=".layouts.FormularioRegistroLayout"
+        <activity android:name=".layouts.FormularioRegistroLayout"/>
+        <activity android:name=".layouts.PerfilLayout"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".layouts.BusquedaLayout"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".layouts.PerfilLayout" />
-        <activity android:name=".layouts.BusquedaLayout" />
     </application>
 
 </manifest>

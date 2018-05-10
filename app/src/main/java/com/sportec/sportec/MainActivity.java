@@ -326,16 +326,7 @@ public class MainActivity extends AppCompatActivity
             this.mScreen=new Intent(this, ResultadoLayout.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
-        }else if (id == R.id.nav_gallery) {
-            this.mLogoNav.setVisibility(View.VISIBLE);
-            //this.showNoticiaFragment();
-
-        } else if (id == R.id.nav_slideshow) {
-            this.mLogoNav.setVisibility(View.INVISIBLE);
-            this.mScreen=new Intent(this, SessionLayout.class);
-            startActivity(this.mScreen);
-
-        } else if (id == R.id.nav_manage) {
+        }else if (id == R.id.nav_manage) {
             this.showRegistroFragment();
             this.mLogoNav.setVisibility(View.VISIBLE);
 

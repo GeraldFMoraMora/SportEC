@@ -12,6 +12,7 @@ public class BusquedaModel {
     public String mPartido;
     public String mDescripcion;
 
+    public BusquedaModel(){}
     public BusquedaModel(int type, String partido, String foto, String descripcion)
     {
         this.type=type;
