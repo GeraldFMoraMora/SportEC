@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sportec.sportec.Informacion.ConstantInterface;
-import com.sportec.sportec.Informacion.Model.BusquedaModel;
-import com.sportec.sportec.Informacion.Model.ResultadoModel;
+import com.sportec.sportec.Informacion.Model.DeporteModel;
 import com.sportec.sportec.R;
 import com.squareup.picasso.Picasso;
 
@@ -20,8 +19,8 @@ import java.util.ArrayList;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInterface{
-    private ArrayList<BusquedaModel> dataSet;
+public class BusquedaDeporteAdapter extends RecyclerView.Adapter implements ConstantInterface{
+    private ArrayList<DeporteModel> dataSet;
     Context mContext;
     int total_types;
     private ConstantInterface mConstantInterface;
@@ -54,7 +53,7 @@ public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInt
     }
 
 
-    public BusquedaAdapter(ArrayList<BusquedaModel>data, Context context, ConstantInterface constantInterface) {
+    public BusquedaDeporteAdapter(ArrayList<DeporteModel>data, Context context, ConstantInterface constantInterface) {
         this.dataSet = data;
         this.mContext = context;
         this.mConstantInterface=constantInterface;
@@ -66,7 +65,7 @@ public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInt
 
         View view;
         switch (viewType) {
-            case BusquedaModel.IMAGE_TYPE:
+            case DeporteModel.IMAGE_TYPE:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_busqueda_item, parent, false);
                 return new ImageTypeViewHolder(view);
         }
@@ -78,7 +77,7 @@ public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInt
 
         switch (dataSet.get(position).type) {
             case 0:
-                return BusquedaModel.IMAGE_TYPE;
+                return DeporteModel.IMAGE_TYPE;
             default:
                 return -1;
         }
@@ -87,12 +86,11 @@ public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInt
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        BusquedaModel object = dataSet.get(listPosition);
+        DeporteModel object = dataSet.get(listPosition);
         if (object != null) {
             switch (object.type) {
-                case BusquedaModel.IMAGE_TYPE:
-                    ((ImageTypeViewHolder) holder).titulo.setText(object.mPartido);
-                    ((ImageTypeViewHolder) holder).mDescripcion.setText(object.mDescripcion);
+                case DeporteModel.IMAGE_TYPE:
+                    ((ImageTypeViewHolder) holder).titulo.setText(object.nombre);
                     Picasso.get().load(object.foto).into(((ImageTypeViewHolder) holder).mImage);
                     break;
             }

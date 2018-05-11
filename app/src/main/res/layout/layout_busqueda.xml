@@ -45,8 +45,17 @@
             android:paddingLeft="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_vertical_margin">
 
+            <EditText
+                android:id="@+id/busqueda_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Ingrese aca su busqueda"
+                android:inputType="textPersonName" />
+
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/boton_busqueda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -55,19 +64,6 @@
                 android:text="Buscar"
                 android:textColor="@color/blanco" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Ingrese aca su busqueda"
-                android:inputType="textPersonName" />
         </LinearLayout>
 
         <Space

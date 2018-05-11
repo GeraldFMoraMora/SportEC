@@ -147,7 +147,7 @@ public class PerfilLayout extends AppCompatActivity implements View.OnClickListe
      */
     private void guardarUsuario(String idUsuario, String nombreUsuario, String correoUsuario, String foto){
         FirebaseUser user;
-        Usuario usuario = new Usuario(nombreUsuario,correoUsuario, foto);
+        Usuario usuario = new Usuario(Usuario.IMAGE_TYPE,nombreUsuario,correoUsuario, foto);
         mDatabaseReference.child("usuario").child(idUsuario).setValue(usuario);
     }
 
