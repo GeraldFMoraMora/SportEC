@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.sportec.sportec.Informacion.ConstantInterface;
 import com.sportec.sportec.Informacion.Model.BusquedaModel;
-import com.sportec.sportec.Informacion.Model.ResultadoModel;
 import com.sportec.sportec.R;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInterface{
+public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInterface {
     private ArrayList<BusquedaModel> dataSet;
     Context mContext;
     int total_types;
@@ -49,15 +48,15 @@ public class BusquedaAdapter extends RecyclerView.Adapter implements ConstantInt
 
         @Override
         public void onClick(View v) {
-            mConstantInterface.onClick(v,getAdapterPosition());
+            mConstantInterface.onClick(v, getAdapterPosition());
         }
     }
 
 
-    public BusquedaAdapter(ArrayList<BusquedaModel>data, Context context, ConstantInterface constantInterface) {
+    public BusquedaAdapter(ArrayList<BusquedaModel> data, Context context, ConstantInterface constantInterface) {
         this.dataSet = data;
         this.mContext = context;
-        this.mConstantInterface=constantInterface;
+        this.mConstantInterface = constantInterface;
         total_types = dataSet.size();
     }
 

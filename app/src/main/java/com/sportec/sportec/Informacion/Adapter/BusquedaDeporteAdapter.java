@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class BusquedaDeporteAdapter extends RecyclerView.Adapter implements ConstantInterface{
+public class BusquedaDeporteAdapter extends RecyclerView.Adapter implements ConstantInterface {
     private ArrayList<DeporteModel> dataSet;
     Context mContext;
     int total_types;
@@ -48,15 +48,15 @@ public class BusquedaDeporteAdapter extends RecyclerView.Adapter implements Cons
 
         @Override
         public void onClick(View v) {
-            mConstantInterface.onClick(v,getAdapterPosition());
+            mConstantInterface.onClick(v, getAdapterPosition());
         }
     }
 
 
-    public BusquedaDeporteAdapter(ArrayList<DeporteModel>data, Context context, ConstantInterface constantInterface) {
+    public BusquedaDeporteAdapter(ArrayList<DeporteModel> data, Context context, ConstantInterface constantInterface) {
         this.dataSet = data;
         this.mContext = context;
-        this.mConstantInterface=constantInterface;
+        this.mConstantInterface = constantInterface;
         total_types = dataSet.size();
     }
 

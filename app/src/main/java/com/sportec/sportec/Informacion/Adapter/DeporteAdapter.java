@@ -20,9 +20,11 @@ import java.util.List;
 
 public class DeporteAdapter extends BaseAdapter {
     private Context mContext;
-    public DeporteAdapter(Context context){
-        this.mContext=context;
+
+    public DeporteAdapter(Context context) {
+        this.mContext = context;
     }
+
     @Override
     public int getCount() {
         return mThumbIds().size();
@@ -85,6 +87,7 @@ public class DeporteAdapter extends BaseAdapter {
         myList.add(R.mipmap.logo_volleyball);
         return myList;
     }
+
     private List<String> mThumbNames() {
         List<String> myList = new ArrayList<String>();
         myList.add("Artes marciales");

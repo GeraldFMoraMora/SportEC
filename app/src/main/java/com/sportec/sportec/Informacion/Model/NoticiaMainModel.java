@@ -5,7 +5,7 @@ package com.sportec.sportec.Informacion.Model;
  */
 
 public class NoticiaMainModel {
-    public static final int IMAGE_TYPE=0;
+    public static final int IMAGE_TYPE = 0;
 
     public int type;
     public String foto;
@@ -14,14 +14,15 @@ public class NoticiaMainModel {
     public boolean dia;
     public String id;
 
-    public NoticiaMainModel(){}
-    public NoticiaMainModel(int type, String text, String foto,String descripcion,boolean dia, String id)
-    {
-        this.type=type;
-        this.foto=foto;
-        this.titulo=text;
-        this.descripcion=descripcion;
-        this.dia=dia;
-        this.id=id;
+    public NoticiaMainModel() {
+    }
+
+    public NoticiaMainModel(int type, String text, String foto, String descripcion, boolean dia, String id) {
+        this.type = type;
+        this.foto = foto;
+        this.titulo = text;
+        this.descripcion = descripcion;
+        this.dia = dia;
+        this.id = id;
     }
 }

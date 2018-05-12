@@ -40,16 +40,18 @@ public class MiembroAdapter extends RecyclerView.Adapter {
 
     /**
      * Constructor
+     *
      * @param data
      * @param context
      */
-    public MiembroAdapter(ArrayList<MiembroModel>data, Context context) {
+    public MiembroAdapter(ArrayList<MiembroModel> data, Context context) {
         this.dataSet = data;
         this.mContext = context;
         total_types = dataSet.size();
     }
 
-    /**Metodo en el cual se monta el card  view sobre el layout
+    /**
+     * Metodo en el cual se monta el card  view sobre el layout
      *
      * @param parent
      * @param viewType
@@ -69,6 +71,7 @@ public class MiembroAdapter extends RecyclerView.Adapter {
 
     /**
      * El adaptador recibe un tipo que quiere decir si va a cargar una imagen o un audio
+     *
      * @param position
      * @return
      */
@@ -85,6 +88,7 @@ public class MiembroAdapter extends RecyclerView.Adapter {
 
     /**
      * En este metodo se le cargan los datos a los cardview
+     *
      * @param holder
      * @param listPosition
      */
@@ -96,8 +100,8 @@ public class MiembroAdapter extends RecyclerView.Adapter {
             switch (object.type) {
                 case MiembroModel.IMAGE_TYPE:
                     ((ImageTypeViewHolder) holder).titulo.setText(object.text);
-                    Context mContext1=((ImageTypeViewHolder) holder).mImage.getContext();
-                    int idFoto= mContext1.getResources().getIdentifier(object.foto,"mipmap",mContext1.getPackageName());
+                    Context mContext1 = ((ImageTypeViewHolder) holder).mImage.getContext();
+                    int idFoto = mContext1.getResources().getIdentifier(object.foto, "mipmap", mContext1.getPackageName());
                     Picasso.get().load(object.foto).into(((ImageTypeViewHolder) holder).mImage);
                     break;
             }

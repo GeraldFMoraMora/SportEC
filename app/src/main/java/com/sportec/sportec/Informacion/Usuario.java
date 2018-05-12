@@ -5,15 +5,18 @@ package com.sportec.sportec.Informacion;
  */
 
 public class Usuario {
-    public static final int IMAGE_TYPE=0;
+    public static final int IMAGE_TYPE = 0;
     public int type;
     public String mNombre;
     public String mCorreo;
     public String mFoto;
-    public Usuario(){}
-    public Usuario(int type, String nombre, String correo, String foto){
-        this.mNombre=nombre;
-        this.mCorreo=correo;
-        this.mFoto=foto;
+
+    public Usuario() {
+    }
+
+    public Usuario(int type, String nombre, String correo, String foto) {
+        this.mNombre = nombre;
+        this.mCorreo = correo;
+        this.mFoto = foto;
     }
 }

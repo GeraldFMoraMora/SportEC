@@ -60,48 +60,34 @@ public class BusquedaLayout extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
 
     private ArrayList list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_busqueda);
 
-        this.list=new ArrayList();
+        this.list = new ArrayList();
 
         this.mEntryBusqueda = (EditText) findViewById(R.id.busqueda_editText);
 
-        //ArrayList<BusquedaModel> list= new ArrayList();
-        //list.add(new BusquedaModel(BusquedaModel.IMAGE_TYPE,"Barcelona - Real Madrid","https://firebasestorage.googleapis.com/v0/b/sportec-cf3d1.appspot.com/o/logos%2Fequipo_logo.png?alt=media&token=c1bc7833-8a71-44e7-ac2d-2637b7591ceb","1-1"));
-
-        //BusquedaAdapter adapter = new BusquedaAdapter(list,this);
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
-
-        //RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_resultado);
-        //mRecyclerView.setLayoutManager(linearLayoutManager);
-        //mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        //mRecyclerView.setAdapter(adapter);
-
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mDatabaseReference = mDatabase.getReference();
-
-        //this.metodoBusquedas();
-
     }
-    public void metodoBusquedas(){
-        //noticia.mPartido.contains("Gerald")
 
+    public void metodoBusquedas() {
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mDatabaseReference = mDatabase.getReference();
         DatabaseReference ref = this.mDatabaseReference.child("noticia");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
 
-                    if (noticia.descripcion.contains(mEntryBusqueda.getText().toString())){
-                        list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia,noticia.id));
-                    }else if (noticia.titulo.contains(mEntryBusqueda.getText().toString())){
-                        list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE,noticia.titulo,noticia.foto,noticia.descripcion,noticia.dia,noticia.id));
+                    if (noticia.descripcion.contains(mEntryBusqueda.getText().toString())) {
+                        list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE, noticia.titulo, noticia.foto, noticia.descripcion, noticia.dia, noticia.id));
+                    } else if (noticia.titulo.contains(mEntryBusqueda.getText().toString())) {
+                        list.add(new NoticiaMainModel(NoticiaMainModel.IMAGE_TYPE, noticia.titulo, noticia.foto, noticia.descripcion, noticia.dia, noticia.id));
                     }
                 }
                 BusquedaNoticiaAdapter adapter = new BusquedaNoticiaAdapter(list, BusquedaLayout.this, new ConstantInterface() {
@@ -111,11 +97,12 @@ public class BusquedaLayout extends AppCompatActivity {
                         ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                                     NoticiaMainModel noticia = singleSnapshot.getValue(NoticiaMainModel.class);
-                                    startActivity(new Intent(BusquedaLayout.this,MainActivity.class));
+                                    startActivity(new Intent(BusquedaLayout.this, MainActivity.class));
                                 }
                             }
+
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
@@ -129,18 +116,17 @@ public class BusquedaLayout extends AppCompatActivity {
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 mRecyclerView.setAdapter(adapter);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
     }
-    public void onClick(View view){
-        switch (view.getId()){
+
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.boton_busqueda:
-                this.list=new ArrayList();
+                this.list = new ArrayList();
                 this.metodoBusquedas();
                 break;
         }

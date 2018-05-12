@@ -36,13 +36,13 @@ public class ResultadoAdapter extends RecyclerView.Adapter {
             super(itemView);
 
             this.titulo = (TextView) itemView.findViewById(R.id.textview_resultado_partido);
-            this.mMarcador = (TextView) itemView.findViewById(R.id.textview_resultado_marcador); 
+            this.mMarcador = (TextView) itemView.findViewById(R.id.textview_resultado_marcador);
             this.mImage = (ImageView) itemView.findViewById(R.id.imageview_resultado_foto);
         }
     }
 
 
-    public ResultadoAdapter(ArrayList<ResultadoModel>data, Context context) {
+    public ResultadoAdapter(ArrayList<ResultadoModel> data, Context context) {
         this.dataSet = data;
         this.mContext = context;
         total_types = dataSet.size();

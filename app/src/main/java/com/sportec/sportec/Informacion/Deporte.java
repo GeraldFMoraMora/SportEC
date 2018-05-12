@@ -8,9 +8,11 @@ public class Deporte {
     public String foto;
     public String nombre;
 
-    public Deporte(){}
-    public Deporte(String foto, String nombre){
-        this.foto=foto;
-        this.nombre=nombre;
+    public Deporte() {
+    }
+
+    public Deporte(String foto, String nombre) {
+        this.foto = foto;
+        this.nombre = nombre;
     }
 }

@@ -16,9 +16,11 @@ import com.sportec.sportec.R;
 
 public class OpcionAdapter extends BaseAdapter {
     private Context mContext;
-    public OpcionAdapter(Context context){
-        this.mContext=context;
+
+    public OpcionAdapter(Context context) {
+        this.mContext = context;
     }
+
     @Override
     public int getCount() {
         return mThumbIds.length;
@@ -58,12 +60,13 @@ public class OpcionAdapter extends BaseAdapter {
         textView.setText(mThumbNames[position]);
         return convertView;
     }
+
     private Integer[] mThumbIds = {
             R.mipmap.historial_logo, R.mipmap.equipo_logo,
             R.mipmap.reto_logo
     };
-    private String[] mThumbNames= {
-            "Historial","Equipo",
+    private String[] mThumbNames = {
+            "Historial", "Equipo",
             "Retos"
     };
 }

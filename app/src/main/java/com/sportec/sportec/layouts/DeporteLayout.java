@@ -33,7 +33,7 @@ import com.sportec.sportec.R;
  * Created by GeraldMM on 05/05/2018.
  */
 
-public class DeporteLayout extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DeporteLayout extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GridView mGridView;
 
     private Intent mScreen;
@@ -47,6 +47,7 @@ public class DeporteLayout extends AppCompatActivity implements NavigationView.O
     private DatabaseReference mDatabaseReference;
 
     private String mId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class DeporteLayout extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(DeporteLayout.this, "" + id,
                         Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DeporteLayout.this, OpcionLayout.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -77,12 +78,12 @@ public class DeporteLayout extends AppCompatActivity implements NavigationView.O
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Deporte deporte = singleSnapshot.getValue(Deporte.class);
                     System.out.println(deporte.nombre);
-
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }

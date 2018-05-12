@@ -5,16 +5,15 @@ package com.sportec.sportec.Informacion.Model;
  */
 
 public class MiembroModel {
-    public static final int IMAGE_TYPE=0;
+    public static final int IMAGE_TYPE = 0;
 
     public int type;
     public String text;
     public String foto;
 
-    public MiembroModel(int type, String text, String foto)
-    {
-        this.type=type;
-        this.text=text;
-        this.foto=foto;
+    public MiembroModel(int type, String text, String foto) {
+        this.type = type;
+        this.text = text;
+        this.foto = foto;
     }
 }

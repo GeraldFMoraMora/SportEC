@@ -36,7 +36,7 @@ public class NoticiaMainAdapter extends RecyclerView.Adapter implements Constant
     }
 
 
-    class ImageTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ImageTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mTitulo;
         ImageView mImage;
@@ -54,16 +54,16 @@ public class NoticiaMainAdapter extends RecyclerView.Adapter implements Constant
 
         @Override
         public void onClick(View v) {
-            mConstantInterface.onClick(v,getAdapterPosition());
+            mConstantInterface.onClick(v, getAdapterPosition());
 
         }
     }
 
 
-    public NoticiaMainAdapter(ArrayList<NoticiaMainModel>data, Context context, ConstantInterface mConstantInterface) {
+    public NoticiaMainAdapter(ArrayList<NoticiaMainModel> data, Context context, ConstantInterface mConstantInterface) {
         this.dataSet = data;
         this.mContext = context;
-        this.mConstantInterface=mConstantInterface;
+        this.mConstantInterface = mConstantInterface;
         total_types = dataSet.size();
     }
 
@@ -100,8 +100,8 @@ public class NoticiaMainAdapter extends RecyclerView.Adapter implements Constant
                     ((ImageTypeViewHolder) holder).mTitulo.setText(object.titulo);
                     ((ImageTypeViewHolder) holder).mDescripcion.setText(object.descripcion);
                     ((ImageTypeViewHolder) holder).mId.setText(object.id);
-                    mContext1=((ImageTypeViewHolder) holder).mImage.getContext();
-                    int idFoto= mContext1.getResources().getIdentifier(object.foto,"mipmap",mContext1.getPackageName());
+                    mContext1 = ((ImageTypeViewHolder) holder).mImage.getContext();
+                    int idFoto = mContext1.getResources().getIdentifier(object.foto, "mipmap", mContext1.getPackageName());
                     //((ImageTypeViewHolder) holder).mImage.setImageResource(idFoto);
                     Picasso.get().load(object.foto).into(((ImageTypeViewHolder) holder).mImage);
                     break;
