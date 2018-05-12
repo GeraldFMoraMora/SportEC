@@ -326,11 +326,7 @@ public class MainActivity extends AppCompatActivity
             this.mScreen=new Intent(this, ResultadoLayout.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);
-        }else if (id == R.id.nav_manage) {
-            this.showRegistroFragment();
-            this.mLogoNav.setVisibility(View.VISIBLE);
-
-        } else if (id == R.id.nav_share) {
+        }else if (id == R.id.nav_share) {
             this.mScreen=new Intent(this, TabActivity.class);
             startActivity(this.mScreen);
             this.mLogoNav.setVisibility(View.VISIBLE);

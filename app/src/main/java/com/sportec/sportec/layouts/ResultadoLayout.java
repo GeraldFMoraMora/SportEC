@@ -39,9 +39,9 @@ public class ResultadoLayout extends AppCompatActivity {
 
         ArrayList<ResultadoModel> list= new ArrayList();
         list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Barcelona - Real Madrid",R.mipmap.facebook_icon,"1-1"));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"LDA - San Jose Anyermain",R.mipmap.facebook_icon,"5-1"));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"PZ - Lemon FC",R.mipmap.facebook_icon,"3-2"));
-        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Perrediano - Darrisa",R.mipmap.facebook_icon,"0-0"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"LDA - San Jose",R.mipmap.facebook_icon,"5-1"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"PZ - Limon FC",R.mipmap.facebook_icon,"3-2"));
+        list.add(new ResultadoModel(ResultadoModel.IMAGE_TYPE,"Hediano - Saprisa",R.mipmap.facebook_icon,"0-0"));
 
         ResultadoAdapter adapter = new ResultadoAdapter(list,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
