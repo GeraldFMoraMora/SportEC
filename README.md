@@ -1,13 +1,13 @@
 # SporTEC
 
 El objetivo de este proyecto es crear una aplicación en Android que consuma recursos de la plataforma **Firebase**.
-## Características del sistema.
+## Características del sistema
 El sistema a implementar está relacionado con el deporte. Por medio de la aplicación se podrá hacer un seguimiento de noticias en cualquier lugar, en todo momento. También permite seguir eventos con toda la información al instante y resultados minuto a minuto en un solo lugar.
 Se puede crear equipos con una comunidad estudiantil para reunirse a practicar un deporte, además se puede incentivar la competitividad a través de retos, los cuales quedarán registrados en el historial y al equipo subirán de nivel en la tabla de posiciones.
-## Instalación.
+## Instalación
 - Se debe almacenar el archivo ejecutable SporTEC.apk en el dispositivo, ejecutarlo una vez hecho esto, brindarle los permisos necesarios y por ultimo lanzar el ejecutable almacenado en el cajon de aplicaciones con el nombre SporTEC.
 
-## Requisitos del sistema (Hardware & Software).
+## Requisitos del sistema (Hardware & Software)
 - Sistema Operativo **Android** version minima 4.2 (Jelly Bean, API level 17) o hasta la version maxima 8.1 (Oreo, API level 27).
 - Memoria RAM 1.5GB o superior.
 - Espacio de almacenamiento 200MB.
@@ -15,7 +15,7 @@ Se puede crear equipos con una comunidad estudiantil para reunirse a practicar u
 - Acceso a Internet.
 - Camara digital.
 
-## Conectar la aplicación con Firebase.
+## Conectar la aplicación con Firebase
 
 - El desarrollador debe crear una cuenta en Firebase.
 - Debe crear un nuevo proyecto en Firebase que se llamara igual que el actual en desarrollo.
@@ -30,7 +30,7 @@ Se puede crear equipos con una comunidad estudiantil para reunirse a practicar u
 `<uses-permission  android:name="android.permission.INTERNET"/>`
 
 
-## Autenticación mediante el acceso con Facebook en Android.
+## Autenticación mediante el acceso con Facebook en Android
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` 
@@ -59,7 +59,7 @@ implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 
 
-## Autenticación mediante el acceso con Google en Android.
+## Autenticación mediante el acceso con Google en Android
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` 
@@ -74,7 +74,7 @@ compile 'com.google.android.gms:play-services-auth:11.0.4'
 - Habilitar el acceso:
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con Google, por lo cual se selecciona en la sección **Métodos de acceso** la opción **Google** y se habilita, los demás pasos ahí presentados son opcionales.
 
-## Autenticación mediante el acceso con Correo en Android.
+## Autenticación mediante el acceso con Correo en Android
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` 
@@ -83,7 +83,7 @@ implementation 'com.google.firebase:firebase-auth:11.0.4'
 > **Nota**: Esta versión de Firebase puede cambiar con el tiempo.
 - Habilitar el acceso:
 - 1. Se debe ingresar desde la pagina principal de Firebase, ir a la sección **Consola** y luego seleccionar la propiedad Autenticación, esto le permitirá al desarrollador acceder a los usuarios creados, métodos de acceso, plantillas, entre otros. Recordar que lo que se quiere es habilitar el acceso con correo electrónico, por lo cual se selecciona en la sección **Métodos de acceso** la opción **Correo electrónico/contraseña** y se habilita.
-### Crear una cuenta basada en Correo y contraseña.
+### Crear una cuenta basada en Correo y contraseña
 - En el método `onCreate` de la actividad, se obtiene la instancia compartida del objeto 
 ```java
 private  FirebaseAuth mAuth;  
@@ -115,7 +115,7 @@ mAuth.createUserWithEmailAndPassword(email, password)  .addOnCompleteListener(th
 	}  
 });
 ```
-### Abrir una cuenta basada en Correo y contraseña.
+### Abrir una cuenta basada en Correo y contraseña
 - Desde que un usuario accede a la aplicación, pasa la dirección de correo electrónico y la contraseña al método **signInWithEmailAndPassword**:
 ```java
 mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this,  new  OnCompleteListener<AuthResult>()  {  
@@ -135,7 +135,7 @@ mAuth.signInWithEmailAndPassword(email, password)  .addOnCompleteListener(this, 
 ```
 
 
-## Acceso a base de datos en tiempo real.
+## Acceso a base de datos en tiempo real
 
 - Se debe agregar la dependencia para Firebase Authentication al archivo `build.gradle` (Module: app): 
 ``` implementation 'com.google.firebase:firebase-auth:11.0.4'``` y
@@ -149,15 +149,15 @@ implementation 'com.google.firebase:firebase-database:11.0.4'
 ``` 
 > **Nota**: Notese que la versión de firebase database es la misma que para auth y core firebase.
 > **Nota:** Según la configuración predeterminada, el acceso de lectura y de escritura a la base de datos está restringido, por lo que solo los usuarios autenticados pueden leer o escribir datos. Para comenzar sin configurar  Authentication, se puede  configurar las reglas de acceso público. Esto hace que los datos estén abiertos para todo el mundo, incluso las personas que no usan la app, así que se debe asegurar de volver a restringir la base de datos cuando se configure la autenticación.
-### Referenciar la base de datos.
+### Referenciar la base de datos
 - Para leer la base de datos o escribir en ella, se necesita una instancia de firebase.database.Reference y se realiza así:
 ``` java
 var database = firebase.database();
 ``` 
-### Lectura y escritura de la base de datos.
+### Lectura y escritura de la base de datos
 - Para recuperar los datos de Firebase, se debe agregar un agente de escucha asíncrono a una firebase.database.Reference. El agente de escucha se activa una vez para el estado inicial de los datos y otra vez cuando los datos cambian.
 - > **Nota:** Según la configuración predeterminada, el acceso de lectura y de escritura a la base de datos está restringido, por lo que solo los usuarios autenticados pueden leer o escribir datos. Para comenzar sin configurar  Authentication, se puede  configurar las reglas de acceso público. Esto hace que los datos estén abiertos para todo el mundo, incluso las personas que no usan la app, así que se debe asegurar de volver a restringir la base de datos cuando se configure la autenticación.
-#### Escritura de datos.
+#### Escritura de datos
 Para ello se puede utilizar la función `set()` para guardar datos en una referencia que sea especificada, un ejemplo similar al utilizado en esta aplicación es:
 ```java
 function writeUserData(userId, name, email, imageUrl)  { 
@@ -168,8 +168,8 @@ function writeUserData(userId, name, email, imageUrl)  {
 		});  
 	}
 ```
-### Gestión de los datos (Borrado y actualización).
-#### Actualización.
+### Gestión de los datos (Borrado y actualización)
+#### Actualización
 - Para escribir de forma simultánea en elementos secundarios específicos de un nodo sin sobrescribir otros nodos secundarios, se usa el método **update()**.
 - Al utilizar la funcion **update()**, se puede definir una ruta de acceso de la clave para actualizar valores secundarios de nivel inferior.
 ```java
@@ -187,7 +187,7 @@ function writeNewPost(uid, username, picture, title, body)  {
 	return firebase.database().ref().update(updates);
 }
 ```
-#### Borrado.
+#### Borrado
 - Para borrar datos se necesita llamar a la función **remove()** haciendo una referencia a la ubicación de los datos.
 >**Nota**: Para borrar se puede especificar **null** como el valor de otra operación de escritura, como **set()** o **update()**.
 
@@ -217,7 +217,7 @@ service firebase.storage {
   }
 }
 ``` 
-### Crear una referencia.
+### Crear una referencia
 Para poder acceder a la nube de almacenamiento se debe crear la instancia de **FirebaseStorage**:
 ``` java
 private StorageReference mStorageFerence;
